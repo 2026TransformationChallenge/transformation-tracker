@@ -236,11 +236,7 @@
         @media print {
             @page {
                 size: landscape;
-                margin: 8mm;
-            }
-
-            * {
-                page-break-inside: avoid;
+                margin: 10mm;
             }
 
             body {
@@ -253,113 +249,110 @@
                 box-shadow: none;
                 max-width: 100%;
                 margin: 0;
-                transform: scale(0.78);
+                transform: scale(0.95);
                 transform-origin: top left;
-                width: 128%;
             }
 
             .header {
-                padding: 5px 8px;
+                padding: 8px 10px;
                 page-break-after: avoid;
             }
 
             .header h1 {
-                font-size: 1.3em;
-                margin-bottom: 2px;
-                letter-spacing: 0.5px;
-                line-height: 1.1;
+                font-size: 1.4em;
+                margin-bottom: 3px;
+                letter-spacing: 1px;
             }
 
             .header h2 {
-                font-size: 0.7em;
+                font-size: 0.75em;
             }
 
             .goals-section {
-                padding: 5px 8px;
+                padding: 8px 10px;
             }
 
             .goals-container {
-                margin-bottom: 3px;
-                gap: 3px;
+                margin-bottom: 5px;
+                gap: 5px;
             }
 
             .goal-row {
-                gap: 8px;
+                gap: 10px;
             }
 
             .input-group {
-                margin-bottom: 2px;
+                margin-bottom: 3px;
             }
 
             .input-group label {
-                font-size: 10px;
-                margin-bottom: 1px;
+                font-size: 11px;
+                margin-bottom: 2px;
             }
 
             .input-group input {
                 border: 1px solid #333;
-                padding: 2px 4px;
-                font-size: 9px;
+                padding: 3px 5px;
+                font-size: 10px;
             }
 
             .table-wrapper {
                 overflow: visible;
-                margin-top: 3px;
+                margin-top: 5px;
             }
 
             .tracker-table {
                 min-width: 100%;
-                font-size: 6.5px;
+                font-size: 7px;
                 page-break-inside: avoid;
             }
 
             .tracker-table th {
-                padding: 2px 1px;
-                font-size: 6.5px;
-                line-height: 1.1;
+                padding: 3px 2px;
+                font-size: 7px;
+                line-height: 1.2;
             }
 
             .tracker-table td {
-                padding: 1px 1px;
-                font-size: 6.5px;
-                line-height: 1.2;
+                padding: 2px 1px;
+                font-size: 7px;
             }
 
             .week-cell {
-                font-size: 7px;
-                padding: 1px 2px;
+                font-size: 8px;
+                padding: 2px 3px;
             }
 
             .challenge-cell {
-                font-size: 6.5px;
-                padding-left: 3px;
-                line-height: 1.2;
+                font-size: 7px;
+                padding-left: 4px;
+                line-height: 1.3;
             }
 
             .final-section {
-                padding: 5px 8px;
+                padding: 8px 10px;
                 page-break-before: avoid;
             }
 
             .final-grid {
                 grid-template-columns: repeat(4, 1fr);
-                gap: 4px;
-                margin-bottom: 5px;
+                gap: 5px;
+                margin-bottom: 8px;
             }
 
             .final-item {
-                padding: 3px;
-                font-size: 8px;
+                padding: 5px;
+                font-size: 9px;
             }
 
             .final-item label {
-                font-size: 8px;
+                font-size: 9px;
             }
 
             .points-display {
-                font-size: 1em;
-                padding: 5px;
-                margin-top: 5px;
+                font-size: 1.1em;
+                padding: 8px;
+                margin-top: 8px;
             }
 
             .button-container {
@@ -367,10 +360,10 @@
             }
 
             input[type="checkbox"] {
-                width: 12px;
-                height: 12px;
-                min-width: 12px;
-                min-height: 12px;
+                width: 14px;
+                height: 14px;
+                min-width: 14px;
+                min-height: 14px;
                 print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
             }
@@ -381,12 +374,12 @@
             }
 
             input[type="checkbox"]:checked::after {
-                font-size: 10px;
+                font-size: 12px;
             }
 
             .final-item input[type="checkbox"] {
-                width: 14px;
-                height: 14px;
+                width: 16px;
+                height: 16px;
             }
         }
 
