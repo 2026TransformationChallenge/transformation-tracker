@@ -233,6 +233,107 @@
             background-color: #218838;
         }
 
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+                background: white;
+            }
+
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+                margin: 0;
+            }
+
+            .header {
+                padding: 15px 10px;
+                page-break-after: avoid;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+                margin-bottom: 5px;
+            }
+
+            .header h2 {
+                font-size: 0.9em;
+            }
+
+            .goals-section {
+                padding: 10px;
+            }
+
+            .goals-container {
+                margin-bottom: 10px;
+                gap: 10px;
+            }
+
+            .input-group input {
+                border: 1px solid #333;
+                padding: 5px;
+                font-size: 12px;
+            }
+
+            .table-wrapper {
+                overflow: visible;
+            }
+
+            .tracker-table {
+                min-width: 100%;
+                font-size: 9px;
+                page-break-inside: avoid;
+            }
+
+            .tracker-table th,
+            .tracker-table td {
+                padding: 4px 2px;
+                font-size: 9px;
+            }
+
+            .challenge-cell {
+                font-size: 8px;
+                padding-left: 5px;
+            }
+
+            .final-section {
+                padding: 10px;
+                page-break-before: avoid;
+            }
+
+            .final-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                margin-bottom: 15px;
+            }
+
+            .final-item {
+                padding: 8px;
+                font-size: 11px;
+            }
+
+            .points-display {
+                font-size: 1.3em;
+                padding: 10px;
+            }
+
+            .button-container {
+                display: none;
+            }
+
+            input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            input[type="checkbox"]:checked {
+                background-color: #4CAF50;
+                border-color: #4CAF50;
+            }
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -441,7 +542,6 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         function update() {
             var total = 0;
@@ -513,49 +613,9 @@
         }
 
         function exportToPDF() {
-            // Get the user's name for the filename
-            var userName = document.getElementById('userName').value || 'tracker';
-            var filename = userName.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '_progress.pdf';
-
-            // Clone the container to modify for PDF
-            var element = document.querySelector('.container').cloneNode(true);
-
-            // Remove buttons from the cloned element
-            var buttons = element.querySelector('.button-container');
-            if (buttons) {
-                buttons.remove();
-            }
-
-            // Create a temporary wrapper for better PDF rendering
-            var wrapper = document.createElement('div');
-            wrapper.style.padding = '0';
-            wrapper.style.margin = '0';
-            wrapper.style.background = 'white';
-            wrapper.appendChild(element);
-
-            // PDF options - landscape for wide table
-            var opt = {
-                margin: [5, 5, 5, 5],
-                filename: filename,
-                image: { type: 'jpeg', quality: 0.95 },
-                html2canvas: {
-                    scale: 2,
-                    useCORS: true,
-                    letterRendering: true,
-                    scrollY: 0,
-                    scrollX: 0
-                },
-                jsPDF: {
-                    unit: 'mm',
-                    format: 'a4',
-                    orientation: 'landscape',
-                    compress: true
-                },
-                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-            };
-
-            // Generate PDF
-            html2pdf().set(opt).from(wrapper).save();
+            // Use the browser's native print functionality
+            // This provides better formatting and control
+            window.print();
         }
 
         function resetAll() {
