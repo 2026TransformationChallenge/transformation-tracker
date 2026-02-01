@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Transformation Challenge Tracker</title>
     <link rel="icon" href="apple-touch-icon.png?v=2">
     <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
@@ -1332,6 +1335,26 @@
     </div>
 
     <script>
+        // Version number - increment this each time you make changes
+        var APP_VERSION = '1.4';
+
+        // Check for updates and auto-reload if new version available
+        function checkForUpdates() {
+            var savedVersion = localStorage.getItem('appVersion');
+
+            if (savedVersion && savedVersion !== APP_VERSION) {
+                console.log('New version detected. Reloading...');
+                localStorage.setItem('appVersion', APP_VERSION);
+                // Force reload from server, not cache
+                window.location.reload(true);
+            } else {
+                localStorage.setItem('appVersion', APP_VERSION);
+            }
+        }
+
+        // Run version check on page load
+        checkForUpdates();
+
         var weeks = [
             {
                 week: 1,
