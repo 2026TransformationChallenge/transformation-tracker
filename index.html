@@ -200,22 +200,37 @@
             margin-top: 20px;
         }
 
-        .reset-btn {
-            background-color: #dc3545;
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .reset-btn, .export-btn {
             color: white;
             padding: 12px 30px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            margin-top: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+        }
+
+        .reset-btn {
+            background-color: #dc3545;
         }
 
         .reset-btn:hover {
             background-color: #c82333;
+        }
+
+        .export-btn {
+            background-color: #28a745;
+        }
+
+        .export-btn:hover {
+            background-color: #218838;
         }
 
         @media (max-width: 768px) {
@@ -419,10 +434,14 @@
                 Total Points: <span id="totalPoints">0</span>
             </div>
 
-            <button class="reset-btn" onclick="resetAll()">Reset All Data</button>
+            <div class="button-container">
+                <button class="export-btn" onclick="exportToPDF()">Export to PDF</button>
+                <button class="reset-btn" onclick="resetAll()">Reset All Data</button>
+            </div>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         function update() {
             var total = 0;
@@ -491,6 +510,27 @@
             } catch (e) {
                 // Silently fail if localStorage is not available
             }
+        }
+
+        function exportToPDF() {
+            // Get the user's name for the filename
+            var userName = document.getElementById('userName').value || 'tracker';
+            var filename = userName.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '_progress.pdf';
+
+            // Clone the container to modify for PDF
+            var element = document.querySelector('.container');
+
+            // PDF options
+            var opt = {
+                margin: 10,
+                filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Generate PDF
+            html2pdf().set(opt).from(element).save();
         }
 
         function resetAll() {
