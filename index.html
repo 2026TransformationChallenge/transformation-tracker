@@ -538,6 +538,179 @@
             box-shadow: 0 10px 25px rgba(211, 69, 28, 0.3);
         }
 
+        .btn-summary {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+
+        .btn-summary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 95%;
+            max-width: 1200px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #D3451C 0%, #E86F3E 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .close-btn {
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .close-btn:hover {
+            opacity: 1;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .summary-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .summary-row {
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .summary-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: white;
+        }
+
+        .summary-table th {
+            background-color: #d4d4c8;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #999;
+            font-size: 12px;
+        }
+
+        .summary-table td {
+            padding: 10px 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .summary-table .week-cell {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+
+        .summary-table .challenge-cell {
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        .summary-table input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: default;
+            accent-color: #D3451C;
+        }
+
+        .summary-table input[type="checkbox"]:checked {
+            background: #D3451C !important;
+            border-color: #D3451C !important;
+        }
+
+        .summary-final-item input[type="checkbox"] {
+            accent-color: #D3451C;
+        }
+
+        .summary-final-item input[type="checkbox"]:checked {
+            background: #D3451C !important;
+            border-color: #D3451C !important;
+        }
+
+        .summary-final {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .summary-final-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .summary-final-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .summary-final-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+
+        .summary-total {
+            background: linear-gradient(135deg, #D3451C 0%, #E86F3E 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -583,12 +756,46 @@
                 grid-template-columns: 1fr;
                 gap: 10px;
             }
+
+            .modal-content {
+                width: 98%;
+                margin: 1% auto;
+                max-height: 98vh;
+            }
+
+            .modal-body {
+                padding: 15px;
+            }
+
+            .summary-table {
+                font-size: 9px;
+            }
+
+            .summary-table th {
+                font-size: 9px;
+                padding: 8px 4px;
+            }
+
+            .summary-table td {
+                font-size: 9px;
+                padding: 8px 4px;
+            }
+
+            .summary-final-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
         }
 
         @media print {
             @page {
                 size: landscape;
-                margin: 8mm;
+                margin: 5mm;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
 
             body {
@@ -606,15 +813,17 @@
 
             .header {
                 background: linear-gradient(135deg, #ff9a76 0%, #ffc3a0 50%, #ffafbd 100%);
-                padding: 10px;
-                margin-bottom: 10px;
+                padding: 8px;
+                margin-bottom: 8px;
+                page-break-after: avoid;
             }
 
             .header h1 {
                 background: none;
                 -webkit-text-fill-color: #1a4d2e;
                 color: #1a4d2e;
-                font-size: 1.5em;
+                font-size: 1.3em;
+                margin-bottom: 0;
             }
 
             .header p {
@@ -622,29 +831,31 @@
             }
 
             .profile-card {
-                padding: 10px;
-                margin-bottom: 10px;
+                padding: 8px;
+                margin-bottom: 8px;
+                background: white !important;
+                page-break-after: avoid;
             }
 
             .goals-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                gap: 10px;
+                gap: 8px;
             }
 
             .input-group {
-                margin-bottom: 5px;
+                margin-bottom: 3px;
             }
 
             .input-group label {
-                font-size: 10px;
-                margin-bottom: 2px;
+                font-size: 9px;
+                margin-bottom: 1px;
             }
 
             .input-group input {
                 border: 1px solid #333;
-                padding: 3px;
-                font-size: 10px;
+                padding: 2px;
+                font-size: 9px;
             }
 
             .quick-links {
@@ -663,42 +874,53 @@
                 display: none;
             }
 
+            .modal {
+                display: none !important;
+            }
+
             .final-section {
-                padding: 10px;
+                padding: 8px;
+                background: white !important;
+                page-break-inside: avoid;
             }
 
             .section-title {
-                font-size: 1em;
-                margin-bottom: 10px;
+                font-size: 0.95em;
+                margin-bottom: 8px;
             }
 
             .final-grid {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
-                gap: 5px;
-                margin-bottom: 10px;
+                gap: 4px;
+                margin-bottom: 8px;
             }
 
             .final-item {
-                padding: 5px;
-                font-size: 9px;
+                padding: 4px;
+                font-size: 8px;
+                background: white !important;
             }
 
             .total-section {
-                padding: 10px;
-                margin-bottom: 10px;
+                padding: 8px;
+                margin-bottom: 0;
+                background: linear-gradient(135deg, #D3451C 0%, #E86F3E 100%);
+                page-break-inside: avoid;
             }
 
             .total-label {
-                font-size: 0.9em;
+                font-size: 0.85em;
+                margin-bottom: 5px;
             }
 
             .total-points {
-                font-size: 2em;
+                font-size: 1.8em;
             }
 
             .max-points {
-                font-size: 0.8em;
+                font-size: 0.75em;
+                margin-top: 3px;
             }
 
             .button-group {
@@ -706,20 +928,6 @@
             }
 
             /* Create table for print */
-            .profile-card::after {
-                content: '';
-                display: block;
-                margin-top: 10px;
-            }
-
-            .container::after {
-                content: '';
-                display: table;
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-            /* Inject table HTML */
             .profile-card {
                 page-break-after: avoid;
             }
@@ -729,18 +937,19 @@
                 display: table !important;
                 width: 100%;
                 border-collapse: collapse;
-                margin: 10px 0;
+                margin: 8px 0;
                 font-size: 7px;
+                page-break-inside: avoid;
             }
 
             .print-table th {
-                background-color: #d4d4c8;
+                background-color: #d4d4c8 !important;
                 padding: 3px 2px;
                 text-align: center;
                 font-weight: bold;
                 border: 1px solid #999;
                 font-size: 7px;
-                line-height: 1.2;
+                line-height: 1.1;
             }
 
             .print-table td {
@@ -748,25 +957,26 @@
                 border: 1px solid #ddd;
                 text-align: center;
                 font-size: 7px;
+                line-height: 1.2;
             }
 
             .print-table .week-cell {
                 font-weight: bold;
-                background-color: #f0f0f0;
+                background-color: #f0f0f0 !important;
                 font-size: 8px;
             }
 
             .print-table .challenge-cell {
                 text-align: left;
                 padding-left: 4px;
-                font-size: 7px;
+                font-size: 6.5px;
             }
 
             .custom-checkbox input[type="checkbox"] {
                 width: 12px;
                 height: 12px;
-                print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
             .custom-checkbox input[type="checkbox"]:checked {
@@ -856,7 +1066,55 @@
 
             <div class="button-group">
                 <button class="btn btn-export" onclick="exportToPDF()">📄 Export to PDF</button>
+                <button class="btn btn-summary" onclick="showSummary()">📊 Show Summary</button>
                 <button class="btn btn-reset" onclick="resetAll()">🔄 Reset All Data</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Modal -->
+    <div id="summaryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Progress Summary</h2>
+                <span class="close-btn" onclick="closeSummary()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="summary-info">
+                    <div class="summary-row">
+                        <strong>Name:</strong> <span id="summaryName"></span>
+                    </div>
+                    <div class="summary-row">
+                        <strong>Primary Goal:</strong> <span id="summaryPrimaryGoal"></span>
+                    </div>
+                    <div class="summary-row">
+                        <strong>Secondary Goal:</strong> <span id="summarySecondaryGoal"></span>
+                    </div>
+                </div>
+                <table class="summary-table" id="summaryTable"></table>
+                <div class="summary-final">
+                    <div class="summary-final-grid">
+                        <div class="summary-final-item">
+                            <input type="checkbox" id="summaryInitialScan" disabled>
+                            <label>Initial Inbody Scan (20 Pts)</label>
+                        </div>
+                        <div class="summary-final-item">
+                            <input type="checkbox" id="summaryFinalScan" disabled>
+                            <label>Final Inbody Scan (20 Pts)</label>
+                        </div>
+                        <div class="summary-final-item">
+                            <input type="checkbox" id="summaryPrimaryGoalAchieved" disabled>
+                            <label>Hit Primary Goal (20pts)</label>
+                        </div>
+                        <div class="summary-final-item">
+                            <input type="checkbox" id="summarySecondaryGoalAchieved" disabled>
+                            <label>Hit Secondary Goal (10pts)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="summary-total">
+                    Total Points: <span id="summaryTotalPoints">0</span> / 630
+                </div>
             </div>
         </div>
     </div>
@@ -1280,6 +1538,71 @@
                 }
             }, 2000);
         }
+
+        function showSummary() {
+            var modal = document.getElementById('summaryModal');
+
+            // Populate user info
+            document.getElementById('summaryName').textContent = document.getElementById('userName').value || 'Not set';
+            document.getElementById('summaryPrimaryGoal').textContent = document.getElementById('primaryGoal').value || 'Not set';
+            document.getElementById('summarySecondaryGoal').textContent = document.getElementById('secondaryGoal').value || 'Not set';
+
+            // Generate summary table
+            var table = document.getElementById('summaryTable');
+            var thead = `
+                <thead>
+                    <tr>
+                        <th>Week</th>
+                        <th>3 Classes<br>(25pts)</th>
+                        <th>Complete Weekly Challenge<br>(15pts)</th>
+                        <th>My Fitness Pal Tracking 5/7 days<br>(15pts)</th>
+                        <th>Take the Benchmark / Specialty of the week<br>(15pts)</th>
+                        <th>Weekly Challenges</th>
+                    </tr>
+                </thead>
+            `;
+
+            var tbody = '<tbody>';
+            weeks.forEach(function(week) {
+                tbody += `
+                    <tr>
+                        <td class="week-cell">W${week.week}</td>
+                        <td><input type="checkbox" ${document.getElementById('c' + week.week).checked ? 'checked' : ''} disabled></td>
+                        <td><input type="checkbox" ${document.getElementById('w' + week.week).checked ? 'checked' : ''} disabled></td>
+                        <td><input type="checkbox" ${document.getElementById('f' + week.week).checked ? 'checked' : ''} disabled></td>
+                        <td><input type="checkbox" ${document.getElementById('b' + week.week).checked ? 'checked' : ''} disabled></td>
+                        <td class="challenge-cell">${week.challenge}</td>
+                    </tr>
+                `;
+            });
+            tbody += '</tbody>';
+
+            table.innerHTML = thead + tbody;
+
+            // Populate final checkboxes
+            document.getElementById('summaryInitialScan').checked = document.getElementById('initialScan').checked;
+            document.getElementById('summaryFinalScan').checked = document.getElementById('finalScan').checked;
+            document.getElementById('summaryPrimaryGoalAchieved').checked = document.getElementById('primaryGoalAchieved').checked;
+            document.getElementById('summarySecondaryGoalAchieved').checked = document.getElementById('secondaryGoalAchieved').checked;
+
+            // Show total points
+            document.getElementById('summaryTotalPoints').textContent = document.getElementById('totalPoints').textContent;
+
+            // Show modal
+            modal.style.display = 'block';
+        }
+
+        function closeSummary() {
+            document.getElementById('summaryModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            var modal = document.getElementById('summaryModal');
+            if (event.target == modal) {
+                closeSummary();
+            }
+        };
 
         window.onload = function() {
             generateWeeks();
