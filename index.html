@@ -663,14 +663,14 @@
             -webkit-appearance: none;
             appearance: none;
             border: 2px solid #ddd;
-            border-radius: 4px;
+            border-radius: 6px;
             position: relative;
             background: white;
         }
 
         .summary-table input[type="checkbox"]:checked {
-            background: #333 !important;
-            border-color: #333 !important;
+            background: linear-gradient(135deg, #D3451C 0%, #E86F3E 100%) !important;
+            border-color: #D3451C !important;
         }
 
         .summary-table input[type="checkbox"]:checked::after {
@@ -688,14 +688,14 @@
             -webkit-appearance: none;
             appearance: none;
             border: 2px solid #ddd;
-            border-radius: 4px;
+            border-radius: 6px;
             position: relative;
             background: white;
         }
 
         .summary-final-item input[type="checkbox"]:checked {
-            background: #333 !important;
-            border-color: #333 !important;
+            background: linear-gradient(135deg, #D3451C 0%, #E86F3E 100%) !important;
+            border-color: #D3451C !important;
         }
 
         .summary-final-item input[type="checkbox"]:checked::after {
@@ -790,32 +790,185 @@
             }
 
             .modal-content {
-                width: 98%;
-                margin: 1% auto;
-                max-height: 98vh;
+                width: 96%;
+                margin: 2vh auto;
+                max-height: 96vh;
+                overflow-y: auto;
+            }
+
+            .modal-header {
+                padding: 12px 15px;
+            }
+
+            .modal-header h2 {
+                font-size: 1.1em;
+            }
+
+            .close-btn {
+                font-size: 28px;
             }
 
             .modal-body {
-                padding: 15px;
+                padding: 10px;
+            }
+
+            .summary-info {
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+
+            .summary-row {
+                font-size: 0.85em;
+                margin-bottom: 6px;
             }
 
             .summary-table {
-                font-size: 9px;
+                font-size: 7px;
+                margin-bottom: 10px;
             }
 
             .summary-table th {
-                font-size: 9px;
-                padding: 8px 4px;
+                font-size: 7px;
+                padding: 4px 2px;
+                line-height: 1.1;
             }
 
             .summary-table td {
-                font-size: 9px;
-                padding: 8px 4px;
+                font-size: 7px;
+                padding: 4px 2px;
+            }
+
+            .summary-table .challenge-cell {
+                font-size: 6.5px;
+                padding-left: 4px;
+            }
+
+            .summary-table input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+            }
+
+            .summary-table input[type="checkbox"]:checked::after {
+                font-size: 11px;
+            }
+
+            .summary-final {
+                padding: 10px;
+                margin-bottom: 10px;
             }
 
             .summary-final-grid {
                 grid-template-columns: 1fr;
-                gap: 10px;
+                gap: 8px;
+            }
+
+            .summary-final-item {
+                font-size: 0.85em;
+            }
+
+            .summary-final-item input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+            }
+
+            .summary-final-item input[type="checkbox"]:checked::after {
+                font-size: 12px;
+            }
+
+            .summary-total {
+                padding: 12px;
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .modal-content {
+                width: 98%;
+                margin: 1vh auto;
+                max-height: 98vh;
+            }
+
+            .modal-header {
+                padding: 10px 12px;
+            }
+
+            .modal-header h2 {
+                font-size: 1em;
+            }
+
+            .close-btn {
+                font-size: 24px;
+            }
+
+            .modal-body {
+                padding: 8px;
+            }
+
+            .summary-info {
+                padding: 8px;
+                margin-bottom: 8px;
+            }
+
+            .summary-row {
+                font-size: 0.8em;
+                margin-bottom: 5px;
+            }
+
+            .summary-table {
+                font-size: 6.5px;
+                margin-bottom: 8px;
+            }
+
+            .summary-table th {
+                font-size: 6.5px;
+                padding: 3px 1px;
+                line-height: 1;
+            }
+
+            .summary-table td {
+                font-size: 6.5px;
+                padding: 3px 1px;
+            }
+
+            .summary-table .challenge-cell {
+                font-size: 6px;
+                padding-left: 3px;
+            }
+
+            .summary-table input[type="checkbox"] {
+                width: 14px;
+                height: 14px;
+            }
+
+            .summary-table input[type="checkbox"]:checked::after {
+                font-size: 10px;
+            }
+
+            .summary-final {
+                padding: 8px;
+                margin-bottom: 8px;
+            }
+
+            .summary-final-grid {
+                gap: 6px;
+            }
+
+            .summary-final-item {
+                font-size: 0.8em;
+            }
+
+            .summary-final-item input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+            }
+
+            .summary-final-item input[type="checkbox"]:checked::after {
+                font-size: 11px;
+            }
+
+            .summary-total {
+                padding: 10px;
+                font-size: 1.1em;
             }
         }
 
