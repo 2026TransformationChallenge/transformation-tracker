@@ -660,21 +660,53 @@
             width: 20px;
             height: 20px;
             cursor: default;
-            accent-color: #D3451C;
+            -webkit-appearance: none;
+            appearance: none;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            position: relative;
+            background: white;
         }
 
         .summary-table input[type="checkbox"]:checked {
-            background: #D3451C !important;
-            border-color: #D3451C !important;
+            background: #333 !important;
+            border-color: #333 !important;
+        }
+
+        .summary-table input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
         }
 
         .summary-final-item input[type="checkbox"] {
-            accent-color: #D3451C;
+            -webkit-appearance: none;
+            appearance: none;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            position: relative;
+            background: white;
         }
 
         .summary-final-item input[type="checkbox"]:checked {
-            background: #D3451C !important;
-            border-color: #D3451C !important;
+            background: #333 !important;
+            border-color: #333 !important;
+        }
+
+        .summary-final-item input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
         }
 
         .summary-final {
