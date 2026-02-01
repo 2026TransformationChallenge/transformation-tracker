@@ -219,6 +219,33 @@
             font-size: 0.9em;
         }
 
+        .week-complete {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: celebration 0.6s ease-in-out;
+        }
+
+        @keyframes celebration {
+            0% {
+                transform: scale(0.8) rotate(-5deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1) rotate(5deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
         .activity {
             margin-bottom: 15px;
             padding: 15px;
@@ -1501,6 +1528,13 @@
                     `;
                 });
 
+                var pointsHTML = '';
+                if (weekPoints === 70) {
+                    pointsHTML = '<div class="week-complete"><span>Complete</span> <span>🏆</span></div>';
+                } else {
+                    pointsHTML = '<div class="week-points">' + weekPoints + ' / 70 pts</div>';
+                }
+
                 weekCard.innerHTML = `
                     <div class="week-header" onclick="toggleWeek(${week.week}, event)">
                         <div class="week-title">
@@ -1510,7 +1544,7 @@
                             </div>
                             <div class="week-challenge-title">${week.challenge}</div>
                         </div>
-                        <div class="week-points">${weekPoints} / 70 pts</div>
+                        ${pointsHTML}
                     </div>
                     <div class="week-content" id="week-content-${week.week}">
                         ${activitiesHTML}
@@ -1594,7 +1628,13 @@
                 });
                 var pointsDisplay = document.querySelector('#week-content-' + week.week).previousElementSibling.querySelector('.week-points');
                 if (pointsDisplay) {
-                    pointsDisplay.textContent = weekPoints + ' / 70 pts';
+                    if (weekPoints === 70) {
+                        pointsDisplay.className = 'week-complete';
+                        pointsDisplay.innerHTML = '<span>Complete</span> <span>🏆</span>';
+                    } else {
+                        pointsDisplay.className = 'week-points';
+                        pointsDisplay.textContent = weekPoints + ' / 70 pts';
+                    }
                 }
             });
         }
