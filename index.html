@@ -518,19 +518,44 @@
             var filename = userName.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '_progress.pdf';
 
             // Clone the container to modify for PDF
-            var element = document.querySelector('.container');
+            var element = document.querySelector('.container').cloneNode(true);
 
-            // PDF options
+            // Remove buttons from the cloned element
+            var buttons = element.querySelector('.button-container');
+            if (buttons) {
+                buttons.remove();
+            }
+
+            // Create a temporary wrapper for better PDF rendering
+            var wrapper = document.createElement('div');
+            wrapper.style.padding = '0';
+            wrapper.style.margin = '0';
+            wrapper.style.background = 'white';
+            wrapper.appendChild(element);
+
+            // PDF options - landscape for wide table
             var opt = {
-                margin: 10,
+                margin: [5, 5, 5, 5],
                 filename: filename,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                image: { type: 'jpeg', quality: 0.95 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    letterRendering: true,
+                    scrollY: 0,
+                    scrollX: 0
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'landscape',
+                    compress: true
+                },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
             };
 
             // Generate PDF
-            html2pdf().set(opt).from(element).save();
+            html2pdf().set(opt).from(wrapper).save();
         }
 
         function resetAll() {
