@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Staff Transformation Challenge Tracker</title>
-    <link rel="icon" href="apple-touch-icon.png">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <title>Transformation Challenge Tracker</title>
+    <link rel="icon" href="apple-touch-icon.png?v=2">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Tracker">
@@ -15,372 +15,512 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Arial', sans-serif;
-            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: url('header-bg.jpg') center center / cover no-repeat fixed;
+            min-height: 100vh;
             padding: 20px;
-            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg,
+                rgba(193, 50, 22, 0.65) 0%,
+                rgba(211, 69, 28, 0.55) 50%,
+                rgba(193, 50, 22, 0.65) 100%
+            );
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
         }
 
         .header {
-            background: linear-gradient(135deg, #ff9a76 0%, #ffc3a0 50%, #ffafbd 100%);
-            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.20);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .header h1 {
-            color: #1a4d2e;
+            color: white;
             font-size: 2.5em;
-            font-weight: bold;
-            letter-spacing: 2px;
             margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            font-weight: 800;
         }
 
-        .header h2 {
-            color: #1a4d2e;
-            font-size: 1.1em;
-            font-weight: normal;
+        .header p {
+            color: white;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
+            font-weight: 500;
         }
 
-        .goals-section {
-            padding: 30px;
-            background: white;
-        }
-
-        .goals-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+        .profile-card {
+            background: rgba(255, 255, 255, 0.38);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 25px;
             margin-bottom: 20px;
-        }
-
-        .goal-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .input-group {
-            display: flex;
-            flex-direction: column;
+            margin-bottom: 15px;
         }
 
         .input-group label {
-            font-weight: bold;
-            margin-bottom: 8px;
+            display: block;
+            font-weight: 600;
             color: #333;
+            margin-bottom: 8px;
+            font-size: 0.95em;
         }
 
         .input-group input {
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
             font-size: 16px;
+            transition: all 0.3s ease;
         }
 
         .input-group input:focus {
             outline: none;
-            border-color: #ff9a76;
+            border-color: #D3451C;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        .table-wrapper {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin-top: 20px;
+        .goals-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
 
-        .tracker-table {
+        .week-card {
+            background: rgba(255, 255, 255, 0.38);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 15px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .week-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.90);
+        }
+
+        .week-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .week-header:hover {
+            opacity: 0.8;
+        }
+
+        .week-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .week-title-main {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .week-challenge-title {
+            font-size: 0.65em;
+            font-weight: 500;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .collapse-arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.8em;
+        }
+
+        .week-content {
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .week-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin-bottom: 0;
+        }
+
+        .week-header.collapsed .collapse-arrow {
+            transform: rotate(-90deg);
+        }
+
+        .week-points {
+            background: linear-gradient(135deg, #D3451C 0%, #E86F3E 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .activity {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            cursor: default;
+        }
+
+        .activity:hover {
+            background: #f0f1f3;
+        }
+
+        .week-content {
+            cursor: default;
+        }
+
+        .activity-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             width: 100%;
-            min-width: 800px;
-            border-collapse: collapse;
+            user-select: none;
         }
 
-        .tracker-table th {
-            background-color: #d4d4c8;
-            padding: 15px 10px;
-            text-align: center;
-            font-weight: bold;
-            border: 1px solid #999;
-            font-size: 14px;
-        }
-
-        .tracker-table td {
-            padding: 15px 10px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-
-        .tracker-table tr:nth-child(even) {
-            background-color: #fafafa;
-        }
-
-        .week-cell {
-            font-weight: bold;
-            background-color: #f0f0f0;
-        }
-
-        .challenge-cell {
-            text-align: left;
-            padding-left: 15px;
-        }
-
-        .checkbox-cell {
+        .custom-checkbox {
             position: relative;
-        }
-
-        input[type="checkbox"] {
             width: 24px;
             height: 24px;
+            min-width: 24px;
+        }
+
+        .custom-checkbox input[type="checkbox"] {
+            width: 28px;
+            height: 28px;
             cursor: pointer;
-            -webkit-appearance: none;
-            appearance: none;
-            border: 2px solid #666;
-            border-radius: 3px;
-            position: relative;
+            margin: 0;
+        }
+
+        /* Custom styling for desktop only */
+        @media (hover: hover) and (pointer: fine) {
+            .custom-checkbox input[type="checkbox"] {
+                -webkit-appearance: none;
+                appearance: none;
+                border: 2px solid #ddd;
+                border-radius: 6px;
+                transition: all 0.3s ease;
+                position: relative;
+                background: white;
+            }
+
+            .custom-checkbox input[type="checkbox"]:checked {
+                background: linear-gradient(135deg, #D3451C 0%, #E86F3E 100%);
+                border-color: #D3451C;
+            }
+
+            .custom-checkbox input[type="checkbox"]:checked::after {
+                content: '✓';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: white;
+                font-size: 16px;
+                font-weight: bold;
+            }
+        }
+
+        /* Native iOS checkboxes - more reliable */
+        @supports (-webkit-touch-callout: none) {
+            .custom-checkbox input[type="checkbox"] {
+                width: 28px;
+                height: 28px;
+                -webkit-appearance: checkbox;
+                appearance: checkbox;
+                accent-color: #D3451C;
+            }
+        }
+
+        .activity-label {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .activity-name {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .activity-points {
+            color: #D3451C;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .challenge-text {
+            margin-top: 8px;
+            padding: 10px;
             background: white;
-        }
-
-        input[type="checkbox"]:checked {
-            background-color: #4CAF50;
-            border-color: #4CAF50;
-        }
-
-        input[type="checkbox"]:checked::after {
-            content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
+            border-left: 3px solid #D3451C;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9em;
+            color: #666;
         }
 
         .final-section {
-            padding: 30px;
-            background: #f9f9f9;
-            border-top: 3px solid #ff9a76;
+            background: rgba(255, 255, 255, 0.38);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
         }
 
         .final-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
         }
 
         .final-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .final-item:hover {
+            background: #f0f1f3;
         }
 
         .final-item label {
-            font-weight: bold;
-            flex-grow: 1;
+            flex: 1;
             cursor: pointer;
+            font-weight: 500;
+            color: #333;
         }
 
-        .points-display {
+        .total-section {
+            background: linear-gradient(135deg, #D3451C 0%, #E86F3E 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
             text-align: center;
-            font-size: 2em;
-            font-weight: bold;
-            color: #1a4d2e;
-            padding: 20px;
-            background: linear-gradient(135deg, #ffc3a0 0%, #ffafbd 100%);
-            border-radius: 8px;
-            margin-top: 20px;
         }
 
-        .button-container {
+        .total-label {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .total-points {
+            font-size: 3em;
+            font-weight: 700;
+        }
+
+        .max-points {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .button-group {
             display: flex;
             gap: 15px;
-            justify-content: center;
             margin-top: 20px;
-            flex-wrap: wrap;
         }
 
-        .reset-btn, .export-btn {
-            color: white;
-            padding: 12px 30px;
+        .btn {
+            flex: 1;
+            padding: 15px 25px;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 16px;
+            transition: all 0.3s ease;
         }
 
-        .reset-btn {
-            background-color: #dc3545;
+        .btn-export {
+            background: linear-gradient(135deg, #D3451C 0%, #E86F3E 100%);
+            color: white;
         }
 
-        .reset-btn:hover {
-            background-color: #c82333;
+        .btn-export:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
 
-        .export-btn {
-            background-color: #28a745;
+        .btn-reset {
+            background: #ff6b6b;
+            color: white;
         }
 
-        .export-btn:hover {
-            background-color: #218838;
+        .btn-reset:hover {
+            background: #ee5555;
+            transform: translateY(-2px);
         }
 
-        @media print {
-            body {
-                padding: 0;
-                margin: 0;
-                background: white;
-            }
+        .quick-links {
+            background: rgba(255, 255, 255, 0.38);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
 
-            .container {
-                box-shadow: none;
-                max-width: 100%;
-                margin: 0;
-            }
+        .quick-links-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
 
-            .header {
-                padding: 8px 10px;
-                page-break-after: avoid;
-            }
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
 
-            .header h1 {
-                font-size: 1.4em;
-                margin-bottom: 3px;
-                letter-spacing: 1px;
-            }
+        .quick-link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
 
-            .header h2 {
-                font-size: 0.75em;
-            }
+        .quick-link-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
 
-            .goals-section {
-                padding: 8px 10px 0 10px;
-            }
+        .btn-myfitnesspal {
+            background: linear-gradient(135deg, #0072CE 0%, #00A0DC 100%);
+        }
 
-            .goals-container {
-                margin-bottom: 5px;
-                gap: 5px;
-            }
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+        }
 
-            .goal-row {
-                gap: 10px;
-            }
+        .btn-orangetheory {
+            background: linear-gradient(135deg, #D3451C 0%, #E86F3E 100%);
+        }
 
-            .input-group {
-                margin-bottom: 3px;
-            }
+        .btn-orangeuniversity {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+        }
 
-            .input-group label {
-                font-size: 11px;
-                margin-bottom: 2px;
-            }
+        .week-controls {
+            background: rgba(255, 255, 255, 0.38);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
 
-            .input-group input {
-                border: 1px solid #333;
-                padding: 3px 5px;
-                font-size: 10px;
-            }
+        .btn-week-control {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+        }
 
-            .table-wrapper {
-                overflow: visible;
-                margin-top: 5px;
-            }
+        .btn-week-control:first-child {
+            background: linear-gradient(135deg, #D3451C 0%, #E86F3E 100%);
+        }
 
-            .tracker-table {
-                min-width: 100%;
-                font-size: 7px;
-                page-break-inside: avoid;
-            }
+        .btn-week-control:last-child {
+            background: linear-gradient(135deg, #999 0%, #666 100%);
+        }
 
-            .tracker-table th {
-                padding: 3px 2px;
-                font-size: 7px;
-                line-height: 1.2;
-            }
-
-            .tracker-table td {
-                padding: 2px 1px;
-                font-size: 7px;
-            }
-
-            .week-cell {
-                font-size: 8px;
-                padding: 2px 3px;
-            }
-
-            .challenge-cell {
-                font-size: 7px;
-                padding-left: 4px;
-                line-height: 1.3;
-            }
-
-            .final-section {
-                padding: 0 10px 8px 10px;
-                margin-top: 0;
-                page-break-before: avoid;
-            }
-
-            .final-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 5px;
-                margin-bottom: 8px;
-            }
-
-            .final-item {
-                padding: 5px;
-                font-size: 9px;
-            }
-
-            .final-item label {
-                font-size: 9px;
-            }
-
-            .points-display {
-                font-size: 1.1em;
-                padding: 8px;
-                margin-top: 8px;
-            }
-
-            .button-container {
-                display: none;
-            }
-
-            input[type="checkbox"] {
-                width: 14px;
-                height: 14px;
-                min-width: 14px;
-                min-height: 14px;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
-
-            input[type="checkbox"]:checked {
-                background-color: #4CAF50 !important;
-                border-color: #4CAF50 !important;
-            }
-
-            input[type="checkbox"]:checked::after {
-                font-size: 12px;
-            }
-
-            .final-item input[type="checkbox"] {
-                width: 16px;
-                height: 16px;
-            }
+        .btn-week-control:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(211, 69, 28, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -389,66 +529,234 @@
             }
 
             .header {
-                padding: 20px 10px;
+                padding: 40px 20px;
             }
 
             .header h1 {
-                font-size: 1.5em;
-                letter-spacing: 1px;
+                font-size: 1.8em;
             }
 
-            .header h2 {
-                font-size: 0.9em;
+            .header p {
+                font-size: 1em;
             }
 
-            .goals-section {
-                padding: 15px;
-            }
-
-            .goal-row {
+            .goals-grid {
                 grid-template-columns: 1fr;
             }
 
-            .tracker-table {
-                font-size: 10px;
-                min-width: 700px;
+            .week-card {
+                padding: 20px;
             }
 
-            .tracker-table th,
-            .tracker-table td {
-                padding: 6px 3px;
+            .button-group {
+                flex-direction: column;
             }
 
-            .tracker-table th {
-                font-size: 9px;
+            .total-points {
+                font-size: 2.5em;
             }
 
-            .challenge-cell {
-                padding-left: 8px;
-                font-size: 10px;
+            .week-controls {
+                flex-direction: column;
             }
 
-            input[type="checkbox"] {
-                width: 20px;
-                height: 20px;
+            .btn-week-control {
+                width: 100%;
             }
 
-            .final-section {
-                padding: 15px;
-            }
-
-            .final-grid {
+            .quick-links-grid {
                 grid-template-columns: 1fr;
                 gap: 10px;
             }
+        }
 
-            .final-item {
-                padding: 12px;
+        @media print {
+            @page {
+                size: landscape;
+                margin: 8mm;
             }
 
-            .points-display {
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+
+            body::before {
+                display: none;
+            }
+
+            .container {
+                max-width: 100% !important;
+            }
+
+            .header {
+                background: linear-gradient(135deg, #ff9a76 0%, #ffc3a0 50%, #ffafbd 100%);
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+
+            .header h1 {
+                background: none;
+                -webkit-text-fill-color: #1a4d2e;
+                color: #1a4d2e;
                 font-size: 1.5em;
-                padding: 15px;
+            }
+
+            .header p {
+                display: none;
+            }
+
+            .profile-card {
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+
+            .goals-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .input-group {
+                margin-bottom: 5px;
+            }
+
+            .input-group label {
+                font-size: 10px;
+                margin-bottom: 2px;
+            }
+
+            .input-group input {
+                border: 1px solid #333;
+                padding: 3px;
+                font-size: 10px;
+            }
+
+            .quick-links {
+                display: none;
+            }
+
+            .week-controls {
+                display: none;
+            }
+
+            #weeksContainer {
+                display: none;
+            }
+
+            .week-card {
+                display: none;
+            }
+
+            .final-section {
+                padding: 10px;
+            }
+
+            .section-title {
+                font-size: 1em;
+                margin-bottom: 10px;
+            }
+
+            .final-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 5px;
+                margin-bottom: 10px;
+            }
+
+            .final-item {
+                padding: 5px;
+                font-size: 9px;
+            }
+
+            .total-section {
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+
+            .total-label {
+                font-size: 0.9em;
+            }
+
+            .total-points {
+                font-size: 2em;
+            }
+
+            .max-points {
+                font-size: 0.8em;
+            }
+
+            .button-group {
+                display: none;
+            }
+
+            /* Create table for print */
+            .profile-card::after {
+                content: '';
+                display: block;
+                margin-top: 10px;
+            }
+
+            .container::after {
+                content: '';
+                display: table;
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            /* Inject table HTML */
+            .profile-card {
+                page-break-after: avoid;
+            }
+
+            /* Table styles */
+            .print-table {
+                display: table !important;
+                width: 100%;
+                border-collapse: collapse;
+                margin: 10px 0;
+                font-size: 7px;
+            }
+
+            .print-table th {
+                background-color: #d4d4c8;
+                padding: 3px 2px;
+                text-align: center;
+                font-weight: bold;
+                border: 1px solid #999;
+                font-size: 7px;
+                line-height: 1.2;
+            }
+
+            .print-table td {
+                padding: 2px 1px;
+                border: 1px solid #ddd;
+                text-align: center;
+                font-size: 7px;
+            }
+
+            .print-table .week-cell {
+                font-weight: bold;
+                background-color: #f0f0f0;
+                font-size: 8px;
+            }
+
+            .print-table .challenge-cell {
+                text-align: left;
+                padding-left: 4px;
+                font-size: 7px;
+            }
+
+            .custom-checkbox input[type="checkbox"] {
+                width: 12px;
+                height: 12px;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .custom-checkbox input[type="checkbox"]:checked {
+                background: #4CAF50 !important;
+                border-color: #4CAF50 !important;
             }
         }
     </style>
@@ -456,164 +764,381 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>STAFF TRANSFORMATION<br>CHALLENGE TRACKER</h1>
-            <h2>TRACK YOUR WEEKLY PROGRESS</h2>
+            <h1>💪 Transformation Challenge</h1>
+            <p>Track your journey to success</p>
         </div>
 
-        <div class="goals-section">
-            <div class="goals-container">
+        <div class="profile-card">
+            <div class="input-group">
+                <label>Your Name</label>
+                <input type="text" id="userName" placeholder="Enter your name" onchange="saveData()">
+            </div>
+            <div class="goals-grid">
                 <div class="input-group">
-                    <label>Name:</label>
-                    <input type="text" id="userName" placeholder="Enter your name" onchange="saveData()">
+                    <label>Primary Goal</label>
+                    <input type="text" id="primaryGoal" placeholder="e.g., Lose 10 pounds" onchange="saveData()">
                 </div>
-                <div class="goal-row">
-                    <div class="input-group">
-                        <label>Primary Goal:</label>
-                        <input type="text" id="primaryGoal" placeholder="Enter your primary goal" onchange="saveData()">
-                    </div>
-                    <div class="input-group">
-                        <label>Secondary Goal:</label>
-                        <input type="text" id="secondaryGoal" placeholder="Enter your secondary goal" onchange="saveData()">
-                    </div>
+                <div class="input-group">
+                    <label>Secondary Goal</label>
+                    <input type="text" id="secondaryGoal" placeholder="e.g., Build strength" onchange="saveData()">
                 </div>
-            </div>
-
-            <div class="table-wrapper">
-                <table class="tracker-table">
-                    <thead>
-                        <tr>
-                            <th>Week</th>
-                            <th>3 Classes<br>(25pts)</th>
-                            <th>Complete Weekly Challenge<br>(15pts)</th>
-                            <th>My Fitness Pal Tracking 5/7 days<br>(15pts)</th>
-                            <th>Take the Benchmark / Specialty of the week<br>(15pts)</th>
-                            <th>Weekly Challenges</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="week-cell">W1</td>
-                            <td class="checkbox-cell"><input type="checkbox" id="c1" data-points="25" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="w1" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="f1" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="b1" data-points="15" onchange="update()"></td>
-                            <td class="challenge-cell">Take class with a team mate</td>
-                        </tr>
-                        <tr>
-                            <td class="week-cell">W2</td>
-                            <td class="checkbox-cell"><input type="checkbox" id="c2" data-points="25" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="w2" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="f2" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="b2" data-points="15" onchange="update()"></td>
-                            <td class="challenge-cell">Take class at a studio other than your own</td>
-                        </tr>
-                        <tr>
-                            <td class="week-cell">W3</td>
-                            <td class="checkbox-cell"><input type="checkbox" id="c3" data-points="25" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="w3" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="f3" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="b3" data-points="15" onchange="update()"></td>
-                            <td class="challenge-cell">Share a go-to snack and post pic</td>
-                        </tr>
-                        <tr>
-                            <td class="week-cell">W4</td>
-                            <td class="checkbox-cell"><input type="checkbox" id="c4" data-points="25" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="w4" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="f4" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="b4" data-points="15" onchange="update()"></td>
-                            <td class="challenge-cell">Take a bonus class this week: 4 total classes</td>
-                        </tr>
-                        <tr>
-                            <td class="week-cell">W5</td>
-                            <td class="checkbox-cell"><input type="checkbox" id="c5" data-points="25" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="w5" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="f5" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="b5" data-points="15" onchange="update()"></td>
-                            <td class="challenge-cell">Share a recipe in the team whatsapp</td>
-                        </tr>
-                        <tr>
-                            <td class="week-cell">W6</td>
-                            <td class="checkbox-cell"><input type="checkbox" id="c6" data-points="25" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="w6" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="f6" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="b6" data-points="15" onchange="update()"></td>
-                            <td class="challenge-cell">Take a week-end class</td>
-                        </tr>
-                        <tr>
-                            <td class="week-cell">W7</td>
-                            <td class="checkbox-cell"><input type="checkbox" id="c7" data-points="25" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="w7" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="f7" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="b7" data-points="15" onchange="update()"></td>
-                            <td class="challenge-cell">Share a non-scale victory to the whatsapp</td>
-                        </tr>
-                        <tr>
-                            <td class="week-cell">W8</td>
-                            <td class="checkbox-cell"><input type="checkbox" id="c8" data-points="25" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="w8" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="f8" data-points="15" onchange="update()"></td>
-                            <td class="checkbox-cell"><input type="checkbox" id="b8" data-points="15" onchange="update()"></td>
-                            <td class="challenge-cell">Take a different format than usual (hyrox, tread, strength)</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
+
+        <div class="quick-links">
+            <div class="quick-links-title">Quick Links</div>
+            <div class="quick-links-grid">
+                <a href="myfitnesspal://" onclick="openApp(event, 'myfitnesspal://', 'https://www.myfitnesspal.com/')" class="quick-link-btn btn-myfitnesspal">
+                    📊 MyFitnessPal
+                </a>
+                <a href="whatsapp://" onclick="openApp(event, 'whatsapp://', 'https://web.whatsapp.com/')" class="quick-link-btn btn-whatsapp">
+                    💬 WhatsApp
+                </a>
+            </div>
+        </div>
+
+        <div class="week-controls">
+            <button class="btn-week-control" onclick="expandAllWeeks()">📂 Expand All Weeks</button>
+            <button class="btn-week-control" onclick="collapseAllWeeks()">📁 Collapse All Weeks</button>
+        </div>
+
+        <div id="weeksContainer"></div>
 
         <div class="final-section">
+            <h2 class="section-title">Final Milestones</h2>
             <div class="final-grid">
                 <div class="final-item">
-                    <input type="checkbox" id="initialScan" onchange="update()">
-                    <label for="initialScan">Initial Inbody Scan (20 Pts)</label>
+                    <div class="custom-checkbox">
+                        <input type="checkbox" id="initialScan" onchange="handleCheckboxChange()">
+                    </div>
+                    <label for="initialScan">Initial Inbody Scan<br><span class="activity-points">20 pts</span></label>
                 </div>
                 <div class="final-item">
-                    <input type="checkbox" id="finalScan" onchange="update()">
-                    <label for="finalScan">Final Inbody Scan (20 Pts)</label>
+                    <div class="custom-checkbox">
+                        <input type="checkbox" id="finalScan" onchange="handleCheckboxChange()">
+                    </div>
+                    <label for="finalScan">Final Inbody Scan<br><span class="activity-points">20 pts</span></label>
                 </div>
                 <div class="final-item">
-                    <input type="checkbox" id="primaryGoalAchieved" onchange="update()">
-                    <label for="primaryGoalAchieved">Hit Primary Goal (20pts)</label>
+                    <div class="custom-checkbox">
+                        <input type="checkbox" id="primaryGoalAchieved" onchange="handleCheckboxChange()">
+                    </div>
+                    <label for="primaryGoalAchieved">Hit Primary Goal<br><span class="activity-points">20 pts</span></label>
                 </div>
                 <div class="final-item">
-                    <input type="checkbox" id="secondaryGoalAchieved" onchange="update()">
-                    <label for="secondaryGoalAchieved">Hit Secondary Goal (10pts)</label>
+                    <div class="custom-checkbox">
+                        <input type="checkbox" id="secondaryGoalAchieved" onchange="handleCheckboxChange()">
+                    </div>
+                    <label for="secondaryGoalAchieved">Hit Secondary Goal<br><span class="activity-points">10 pts</span></label>
                 </div>
             </div>
 
-            <div class="points-display">
-                Total Points: <span id="totalPoints">0</span>
+            <div class="total-section">
+                <div class="total-label">Total Points</div>
+                <div class="total-points" id="totalPoints">0</div>
+                <div class="max-points">out of 630 points</div>
             </div>
 
-            <div class="button-container">
-                <button class="export-btn" onclick="exportToPDF()">Export to PDF</button>
-                <button class="reset-btn" onclick="resetAll()">Reset All Data</button>
+            <div class="button-group">
+                <button class="btn btn-export" onclick="exportToPDF()">📄 Export to PDF</button>
+                <button class="btn btn-reset" onclick="resetAll()">🔄 Reset All Data</button>
             </div>
         </div>
     </div>
 
     <script>
-        function update() {
-            var total = 0;
+        var weeks = [
+            {
+                week: 1,
+                challenge: 'Take class with a team mate',
+                activities: [
+                    { name: '3 Classes', points: 25, id: 'c1' },
+                    { name: 'Complete Weekly Challenge', points: 15, id: 'w1' },
+                    { name: 'MyFitnessPal 5/7 days', points: 15, id: 'f1' },
+                    { name: 'Benchmark / Specialty', points: 15, id: 'b1' }
+                ]
+            },
+            {
+                week: 2,
+                challenge: 'Take class at a studio other than your own',
+                activities: [
+                    { name: '3 Classes', points: 25, id: 'c2' },
+                    { name: 'Complete Weekly Challenge', points: 15, id: 'w2' },
+                    { name: 'MyFitnessPal 5/7 days', points: 15, id: 'f2' },
+                    { name: 'Benchmark / Specialty', points: 15, id: 'b2' }
+                ]
+            },
+            {
+                week: 3,
+                challenge: 'Share a go-to snack and post pic',
+                activities: [
+                    { name: '3 Classes', points: 25, id: 'c3' },
+                    { name: 'Complete Weekly Challenge', points: 15, id: 'w3' },
+                    { name: 'MyFitnessPal 5/7 days', points: 15, id: 'f3' },
+                    { name: 'Benchmark / Specialty', points: 15, id: 'b3' }
+                ]
+            },
+            {
+                week: 4,
+                challenge: 'Take a bonus class this week: 4 total classes',
+                activities: [
+                    { name: '3 Classes', points: 25, id: 'c4' },
+                    { name: 'Complete Weekly Challenge', points: 15, id: 'w4' },
+                    { name: 'MyFitnessPal 5/7 days', points: 15, id: 'f4' },
+                    { name: 'Benchmark / Specialty', points: 15, id: 'b4' }
+                ]
+            },
+            {
+                week: 5,
+                challenge: 'Share a recipe in the team whatsapp',
+                activities: [
+                    { name: '3 Classes', points: 25, id: 'c5' },
+                    { name: 'Complete Weekly Challenge', points: 15, id: 'w5' },
+                    { name: 'MyFitnessPal 5/7 days', points: 15, id: 'f5' },
+                    { name: 'Benchmark / Specialty', points: 15, id: 'b5' }
+                ]
+            },
+            {
+                week: 6,
+                challenge: 'Take a week-end class',
+                activities: [
+                    { name: '3 Classes', points: 25, id: 'c6' },
+                    { name: 'Complete Weekly Challenge', points: 15, id: 'w6' },
+                    { name: 'MyFitnessPal 5/7 days', points: 15, id: 'f6' },
+                    { name: 'Benchmark / Specialty', points: 15, id: 'b6' }
+                ]
+            },
+            {
+                week: 7,
+                challenge: 'Share a non-scale victory to the whatsapp',
+                activities: [
+                    { name: '3 Classes', points: 25, id: 'c7' },
+                    { name: 'Complete Weekly Challenge', points: 15, id: 'w7' },
+                    { name: 'MyFitnessPal 5/7 days', points: 15, id: 'f7' },
+                    { name: 'Benchmark / Specialty', points: 15, id: 'b7' }
+                ]
+            },
+            {
+                week: 8,
+                challenge: 'Take a different format than usual (hyrox, tread, strength)',
+                activities: [
+                    { name: '3 Classes', points: 25, id: 'c8' },
+                    { name: 'Complete Weekly Challenge', points: 15, id: 'w8' },
+                    { name: 'MyFitnessPal 5/7 days', points: 15, id: 'f8' },
+                    { name: 'Benchmark / Specialty', points: 15, id: 'b8' }
+                ]
+            }
+        ];
 
-            // Weekly checkboxes
-            var weeklyBoxes = document.querySelectorAll('input[type="checkbox"][data-points]');
-            for (var i = 0; i < weeklyBoxes.length; i++) {
-                if (weeklyBoxes[i].checked) {
-                    total += parseInt(weeklyBoxes[i].getAttribute('data-points'));
-                }
+        function handleCheckboxChange() {
+            console.log('Checkbox changed!');
+            update();
+        }
+
+        function toggleWeek(weekNum, event) {
+            // Don't toggle if clicking on a checkbox or label
+            if (event && (event.target.tagName === 'INPUT' || event.target.tagName === 'LABEL')) {
+                return;
             }
 
-            // Final checkboxes
+            var content = document.getElementById('week-content-' + weekNum);
+            var header = content.previousElementSibling;
+
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                content.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+
+            saveCollapsedState();
+        }
+
+        function saveCollapsedState() {
+            try {
+                var collapsed = [];
+                for (var i = 1; i <= 8; i++) {
+                    var content = document.getElementById('week-content-' + i);
+                    if (content && content.classList.contains('collapsed')) {
+                        collapsed.push(i);
+                    }
+                }
+                localStorage.setItem('collapsedWeeks', JSON.stringify(collapsed));
+            } catch (e) {
+                console.error('Save collapsed state error:', e);
+            }
+        }
+
+        function loadCollapsedState() {
+            try {
+                var saved = localStorage.getItem('collapsedWeeks');
+                if (saved) {
+                    var collapsed = JSON.parse(saved);
+                    collapsed.forEach(function(weekNum) {
+                        var content = document.getElementById('week-content-' + weekNum);
+                        var header = content ? content.previousElementSibling : null;
+                        if (content) content.classList.add('collapsed');
+                        if (header) header.classList.add('collapsed');
+                    });
+                } else {
+                    // Collapse all weeks by default
+                    collapseAllWeeks();
+                }
+            } catch (e) {
+                console.error('Load collapsed state error:', e);
+            }
+        }
+
+        function expandAllWeeks() {
+            for (var i = 1; i <= 8; i++) {
+                var content = document.getElementById('week-content-' + i);
+                var header = content ? content.previousElementSibling : null;
+                if (content) content.classList.remove('collapsed');
+                if (header) header.classList.remove('collapsed');
+            }
+            saveCollapsedState();
+        }
+
+        function collapseAllWeeks() {
+            for (var i = 1; i <= 8; i++) {
+                var content = document.getElementById('week-content-' + i);
+                var header = content ? content.previousElementSibling : null;
+                if (content) content.classList.add('collapsed');
+                if (header) header.classList.add('collapsed');
+            }
+            saveCollapsedState();
+        }
+
+        function generateWeeks() {
+            var container = document.getElementById('weeksContainer');
+            container.innerHTML = '';
+
+            weeks.forEach(function(week) {
+                var weekCard = document.createElement('div');
+                weekCard.className = 'week-card';
+
+                var weekPoints = 0;
+                week.activities.forEach(function(activity) {
+                    var checkbox = document.getElementById(activity.id);
+                    if (checkbox && checkbox.checked) {
+                        weekPoints += activity.points;
+                    }
+                });
+
+                var activitiesHTML = '';
+                week.activities.forEach(function(activity) {
+                    activitiesHTML += `
+                        <div class="activity">
+                            <div class="activity-row">
+                                <div class="custom-checkbox">
+                                    <input type="checkbox" id="${activity.id}" onchange="handleCheckboxChange()">
+                                </div>
+                                <label for="${activity.id}" class="activity-label" style="cursor: pointer;">
+                                    <span class="activity-name">${activity.name}</span>
+                                    <span class="activity-points">${activity.points} pts</span>
+                                </label>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                weekCard.innerHTML = `
+                    <div class="week-header" onclick="toggleWeek(${week.week}, event)">
+                        <div class="week-title">
+                            <div class="week-title-main">
+                                <span class="collapse-arrow">▼</span>
+                                Week ${week.week}
+                            </div>
+                            <div class="week-challenge-title">${week.challenge}</div>
+                        </div>
+                        <div class="week-points">${weekPoints} / 70 pts</div>
+                    </div>
+                    <div class="week-content" id="week-content-${week.week}">
+                        ${activitiesHTML}
+                    </div>
+                `;
+
+                container.appendChild(weekCard);
+            });
+
+            // Add event listeners after generating (for iOS compatibility)
+            attachAllCheckboxListeners();
+
+            // Restore collapsed state after regenerating
+            restoreCollapsedState();
+        }
+
+        function restoreCollapsedState() {
+            try {
+                var saved = localStorage.getItem('collapsedWeeks');
+                if (saved) {
+                    var collapsed = JSON.parse(saved);
+                    collapsed.forEach(function(weekNum) {
+                        var content = document.getElementById('week-content-' + weekNum);
+                        var header = content ? content.previousElementSibling : null;
+                        if (content) content.classList.add('collapsed');
+                        if (header) header.classList.add('collapsed');
+                    });
+                }
+            } catch (e) {
+                console.error('Restore collapsed state error:', e);
+            }
+        }
+
+        function attachAllCheckboxListeners() {
+            var allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+            for (var i = 0; i < allCheckboxes.length; i++) {
+                allCheckboxes[i].addEventListener('change', function() {
+                    setTimeout(function() {
+                        update();
+                    }, 10);
+                });
+            }
+        }
+
+        function update() {
+            console.log('Update function called');
+            var total = 0;
+
+            weeks.forEach(function(week) {
+                week.activities.forEach(function(activity) {
+                    var checkbox = document.getElementById(activity.id);
+                    if (checkbox && checkbox.checked) {
+                        total += activity.points;
+                        console.log('Checked:', activity.id, activity.points);
+                    }
+                });
+            });
+
             if (document.getElementById('initialScan').checked) total += 20;
             if (document.getElementById('finalScan').checked) total += 20;
             if (document.getElementById('primaryGoalAchieved').checked) total += 20;
             if (document.getElementById('secondaryGoalAchieved').checked) total += 10;
 
-            // Update display
+            console.log('Total points:', total);
             document.getElementById('totalPoints').textContent = total;
 
-            // Save to localStorage
+            // Update week points display
+            updateWeekPoints();
+
             saveData();
+        }
+
+        function updateWeekPoints() {
+            weeks.forEach(function(week) {
+                var weekPoints = 0;
+                week.activities.forEach(function(activity) {
+                    var checkbox = document.getElementById(activity.id);
+                    if (checkbox && checkbox.checked) {
+                        weekPoints += activity.points;
+                    }
+                });
+                var pointsDisplay = document.querySelector('#week-content-' + week.week).previousElementSibling.querySelector('.week-points');
+                if (pointsDisplay) {
+                    pointsDisplay.textContent = weekPoints + ' / 70 pts';
+                }
+            });
         }
 
         function saveData() {
@@ -632,15 +1157,15 @@
                     }
                 }
 
-                localStorage.setItem('tracker', JSON.stringify(data));
+                localStorage.setItem('trackerModern', JSON.stringify(data));
             } catch (e) {
-                // Silently fail if localStorage is not available
+                console.error('Save error:', e);
             }
         }
 
         function loadData() {
             try {
-                var saved = localStorage.getItem('tracker');
+                var saved = localStorage.getItem('trackerModern');
                 if (saved) {
                     var data = JSON.parse(saved);
                     document.getElementById('userName').value = data.userName || '';
@@ -653,23 +1178,65 @@
                             box.checked = data.boxes[id];
                         }
                     }
-
-                    update();
                 }
             } catch (e) {
-                // Silently fail if localStorage is not available
+                console.error('Load error:', e);
             }
         }
 
+        function generatePrintTable() {
+            var printTable = document.getElementById('printTable');
+            if (printTable) {
+                printTable.remove();
+            }
+
+            var table = document.createElement('table');
+            table.id = 'printTable';
+            table.className = 'print-table';
+            table.style.display = 'none';
+
+            var thead = `
+                <thead>
+                    <tr>
+                        <th>Week</th>
+                        <th>3 Classes<br>(25pts)</th>
+                        <th>Complete Weekly Challenge<br>(15pts)</th>
+                        <th>My Fitness Pal Tracking 5/7 days<br>(15pts)</th>
+                        <th>Take the Benchmark / Specialty of the week<br>(15pts)</th>
+                        <th>Weekly Challenges</th>
+                    </tr>
+                </thead>
+            `;
+
+            var tbody = '<tbody>';
+            weeks.forEach(function(week) {
+                tbody += `
+                    <tr>
+                        <td class="week-cell">W${week.week}</td>
+                        <td><div class="custom-checkbox"><input type="checkbox" ${document.getElementById('c' + week.week).checked ? 'checked' : ''}></div></td>
+                        <td><div class="custom-checkbox"><input type="checkbox" ${document.getElementById('w' + week.week).checked ? 'checked' : ''}></div></td>
+                        <td><div class="custom-checkbox"><input type="checkbox" ${document.getElementById('f' + week.week).checked ? 'checked' : ''}></div></td>
+                        <td><div class="custom-checkbox"><input type="checkbox" ${document.getElementById('b' + week.week).checked ? 'checked' : ''}></div></td>
+                        <td class="challenge-cell">${week.challenge}</td>
+                    </tr>
+                `;
+            });
+            tbody += '</tbody>';
+
+            table.innerHTML = thead + tbody;
+            document.querySelector('.profile-card').after(table);
+        }
+
         function exportToPDF() {
-            // Use the browser's native print functionality
-            // This provides better formatting and control
-            window.print();
+            generatePrintTable();
+            setTimeout(function() {
+                window.print();
+            }, 100);
         }
 
         function resetAll() {
             if (confirm('Are you sure you want to reset all data? This cannot be undone.')) {
-                localStorage.removeItem('tracker');
+                localStorage.removeItem('trackerModern');
                 document.getElementById('userName').value = '';
                 document.getElementById('primaryGoal').value = '';
                 document.getElementById('secondaryGoal').value = '';
@@ -683,9 +1250,27 @@
             }
         }
 
-        // Load data when page loads
+        function openApp(event, appUrl, webUrl) {
+            event.preventDefault();
+
+            // Try to open the app
+            window.location.href = appUrl;
+
+            // If app doesn't open within 2 seconds, open web version
+            var start = Date.now();
+            setTimeout(function() {
+                // Check if we're still on the page (app didn't open)
+                if (Date.now() - start < 2100) {
+                    window.open(webUrl, '_blank');
+                }
+            }, 2000);
+        }
+
         window.onload = function() {
+            generateWeeks();
             loadData();
+            update();
+            loadCollapsedState();
         };
     </script>
 </body>
