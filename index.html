@@ -1858,7 +1858,7 @@
 
     <script>
         // Version number - increment this each time you make changes
-        var APP_VERSION = '3.6';
+        var APP_VERSION = '3.7';
 
         // Check for updates and auto-reload if new version available
         function checkForUpdates() {
@@ -2427,41 +2427,29 @@
         function openApp(event, appUrl, webUrl) {
             event.preventDefault();
 
-            var clickedAt = Date.now();
-            var openedApp = false;
+            var startTime = Date.now();
+            var hasFocus = true;
 
-            // Try to open the app in a hidden iframe first to avoid blank page
-            var iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = appUrl;
-            document.body.appendChild(iframe);
-
-            // Detect if user left the page (app opened)
-            var visibilityChangeHandler = function() {
-                if (document.hidden) {
-                    openedApp = true;
-                }
+            // Track if app opened (user leaves page)
+            var blurHandler = function() {
+                hasFocus = false;
             };
 
-            document.addEventListener('visibilitychange', visibilityChangeHandler);
+            window.addEventListener('blur', blurHandler);
 
-            // After short delay, check if app opened
+            // Try to open the app directly
+            window.location.href = appUrl;
+
+            // Check after a short delay if we're still here
             setTimeout(function() {
-                document.removeEventListener('visibilitychange', visibilityChangeHandler);
-                document.body.removeChild(iframe);
+                window.removeEventListener('blur', blurHandler);
 
-                // If app didn't open and not much time passed, open web version
-                if (!openedApp && (Date.now() - clickedAt < 1500)) {
-                    window.open(webUrl, '_blank');
+                // If we're still focused and not much time passed, open web version
+                var elapsed = Date.now() - startTime;
+                if (hasFocus && elapsed < 2500) {
+                    window.location.href = webUrl;
                 }
-            }, 1000);
-
-            // Fallback: if still on page after 3 seconds, definitely open web version
-            setTimeout(function() {
-                if (!openedApp && !document.hidden) {
-                    window.open(webUrl, '_blank');
-                }
-            }, 3000);
+            }, 2000);
         }
 
         function showSummary() {
