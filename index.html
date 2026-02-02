@@ -51,6 +51,12 @@
             );
             pointer-events: none;
             z-index: 0;
+            animation: subtleShift 20s ease-in-out infinite;
+        }
+
+        @keyframes subtleShift {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 1; }
         }
 
         .container {
@@ -67,10 +73,18 @@
             border-radius: 20px;
             padding: 0;
             margin-bottom: 20px;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5), 0 0 30px rgba(211, 69, 28, 0.3);
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.3);
             overflow: hidden;
+            position: relative;
+            animation: slideDown 0.8s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .header:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(211, 69, 28, 0.5);
         }
 
         .header img {
@@ -78,6 +92,22 @@
             height: auto;
             display: block;
             border-radius: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .header:hover img {
+            transform: scale(1.02);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .header h1 {
@@ -104,6 +134,13 @@
             margin-bottom: 20px;
             box-shadow: 0 15px 50px rgba(0,0,0,0.4);
             border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideDown 0.8s ease-out 0.2s backwards;
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
 
         .input-group {
@@ -149,14 +186,54 @@
             margin-bottom: 15px;
             box-shadow: 0 15px 50px rgba(0,0,0,0.4);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            animation: slideIn 0.6s ease-out backwards;
+        }
+
+        .week-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(211, 69, 28, 0.1), rgba(229, 96, 32, 0.1));
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
         }
 
         .week-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            background: rgba(255, 255, 255, 0.90);
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.6), 0 0 30px rgba(211, 69, 28, 0.3);
+            background: rgba(255, 255, 255, 0.95);
         }
+
+        .week-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .week-card:nth-child(1) { animation-delay: 0.1s; }
+        .week-card:nth-child(2) { animation-delay: 0.15s; }
+        .week-card:nth-child(3) { animation-delay: 0.2s; }
+        .week-card:nth-child(4) { animation-delay: 0.25s; }
+        .week-card:nth-child(5) { animation-delay: 0.3s; }
+        .week-card:nth-child(6) { animation-delay: 0.35s; }
+        .week-card:nth-child(7) { animation-delay: 0.4s; }
+        .week-card:nth-child(8) { animation-delay: 0.45s; }
 
         .week-header {
             display: flex;
@@ -228,6 +305,13 @@
             border-radius: 20px;
             font-weight: 600;
             font-size: 0.9em;
+            box-shadow: 0 4px 15px rgba(211, 69, 28, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .week-points:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(211, 69, 28, 0.5);
         }
 
         .week-complete {
@@ -240,16 +324,17 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            animation: celebration 0.6s ease-in-out;
+            animation: celebration 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 20px rgba(40, 167, 69, 0.5), 0 0 30px rgba(40, 167, 69, 0.3);
         }
 
         @keyframes celebration {
             0% {
-                transform: scale(0.8) rotate(-5deg);
+                transform: scale(0.5) rotate(-10deg);
                 opacity: 0;
             }
             50% {
-                transform: scale(1.1) rotate(5deg);
+                transform: scale(1.15) rotate(5deg);
             }
             100% {
                 transform: scale(1) rotate(0deg);
@@ -260,14 +345,35 @@
         .activity {
             margin-bottom: 15px;
             padding: 15px;
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
             border-radius: 12px;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: default;
+            border: 1px solid rgba(211, 69, 28, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(211, 69, 28, 0.1), transparent);
+            transition: left 0.5s ease;
         }
 
         .activity:hover {
-            background: #f0f1f3;
+            background: linear-gradient(135deg, #fff5f2 0%, #fff 100%);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(211, 69, 28, 0.15);
+            border-color: rgba(211, 69, 28, 0.2);
+        }
+
+        .activity:hover::before {
+            left: 100%;
         }
 
         .week-content {
@@ -374,6 +480,13 @@
             margin-bottom: 20px;
             box-shadow: 0 15px 50px rgba(0,0,0,0.4);
             border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideDown 0.8s ease-out 0.5s backwards;
+            transition: all 0.3s ease;
+        }
+
+        .final-section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
 
         .section-title {
@@ -418,6 +531,25 @@
             border-radius: 15px;
             padding: 25px;
             text-align: center;
+            box-shadow: 0 10px 30px rgba(211, 69, 28, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .total-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .total-label {
@@ -451,27 +583,60 @@
             font-size: 1em;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn-export {
             background: linear-gradient(135deg, #D3451C 0%, #E86F3E 100%);
             color: white;
+            box-shadow: 0 5px 15px rgba(211, 69, 28, 0.3);
         }
 
         .btn-export:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(211, 69, 28, 0.5);
         }
 
         .btn-reset {
-            background: #ff6b6b;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5555 100%);
             color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
         }
 
         .btn-reset:hover {
-            background: #ee5555;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.5);
+        }
+
+        .btn-summary {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-summary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(40, 167, 69, 0.5);
         }
 
         .quick-links {
@@ -483,6 +648,13 @@
             margin-bottom: 20px;
             box-shadow: 0 15px 50px rgba(0,0,0,0.4);
             border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideDown 0.8s ease-out 0.3s backwards;
+            transition: all 0.3s ease;
+        }
+
+        .quick-links:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
 
         .quick-links-title {
@@ -517,8 +689,12 @@
         }
 
         .quick-link-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .quick-link-btn:active {
+            transform: translateY(-1px) scale(0.98);
         }
 
         .btn-myfitnesspal {
@@ -549,6 +725,7 @@
             display: flex;
             gap: 10px;
             justify-content: center;
+            animation: slideDown 0.8s ease-out 0.4s backwards;
         }
 
         .btn-week-control {
@@ -572,8 +749,12 @@
         }
 
         .btn-week-control:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(211, 69, 28, 0.3);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(211, 69, 28, 0.4);
+        }
+
+        .btn-week-control:active {
+            transform: translateY(-1px) scale(0.98);
         }
 
         .btn-summary {
@@ -1343,7 +1524,7 @@
 
     <script>
         // Version number - increment this each time you make changes
-        var APP_VERSION = '1.9';
+        var APP_VERSION = '2.0';
 
         // Check for updates and auto-reload if new version available
         function checkForUpdates() {
