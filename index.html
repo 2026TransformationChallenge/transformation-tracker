@@ -563,6 +563,154 @@
             font-weight: 600;
         }
 
+        /* Progress Tracker */
+        .progress-tracker {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideDown 0.8s ease-out 0.6s backwards;
+        }
+
+        .progress-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #000;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+        }
+
+        .progress-bar-container {
+            position: relative;
+            width: 100%;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .progress-bar-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #D3451C 0%, #E86F3E 50%, #FF9A5A 100%);
+            border-radius: 20px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(211, 69, 28, 0.6), inset 0 2px 5px rgba(255, 255, 255, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(211, 69, 28, 0.6), inset 0 2px 5px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(211, 69, 28, 0.9), inset 0 2px 5px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .progress-milestones {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .milestone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85em;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .milestone-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(211, 69, 28, 0.2);
+            border: 2px solid #D3451C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .milestone.achieved .milestone-icon {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border-color: #28a745;
+            box-shadow: 0 0 15px rgba(40, 167, 69, 0.6);
+            animation: milestoneAchieved 0.5s ease-out;
+        }
+
+        @keyframes milestoneAchieved {
+            0% {
+                transform: scale(0.8);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #D3451C;
+            text-shadow: 0 2px 5px rgba(211, 69, 28, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #333;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
         .max-points {
             font-size: 0.9em;
             opacity: 0.8;
@@ -1014,6 +1162,43 @@
                 gap: 10px;
             }
 
+            .progress-tracker {
+                padding: 20px;
+            }
+
+            .progress-title {
+                font-size: 1.1em;
+            }
+
+            .progress-bar-container {
+                height: 30px;
+            }
+
+            .progress-milestones {
+                margin-top: 10px;
+            }
+
+            .milestone {
+                font-size: 0.7em;
+            }
+
+            .milestone-icon {
+                width: 24px;
+                height: 24px;
+                font-size: 0.8em;
+            }
+
+            .progress-stats {
+                flex-direction: column;
+                gap: 15px;
+                margin-top: 15px;
+                padding-top: 15px;
+            }
+
+            .stat-value {
+                font-size: 1.5em;
+            }
+
             .modal-content {
                 width: 96%;
                 margin: 2vh auto;
@@ -1403,18 +1588,29 @@
         </div>
 
         <div class="profile-card">
-            <div class="input-group">
-                <label>Your Name</label>
-                <input type="text" id="userName" placeholder="Enter your name" onchange="saveData()">
-            </div>
-            <div class="goals-grid">
-                <div class="input-group">
-                    <label>Primary Goal</label>
-                    <input type="text" id="primaryGoal" placeholder="e.g., Lose 10 pounds" onchange="saveData()">
+            <div class="week-header" onclick="toggleProfile(event)">
+                <div class="week-title">
+                    <div class="week-title-main">
+                        <span class="collapse-arrow">▼</span>
+                        <span id="profileTitle">Your Info</span>
+                    </div>
                 </div>
+                <div class="week-points" id="profileStatus">0 / 3 fields</div>
+            </div>
+            <div class="week-content" id="profile-content">
                 <div class="input-group">
-                    <label>Secondary Goal</label>
-                    <input type="text" id="secondaryGoal" placeholder="e.g., Build strength" onchange="saveData()">
+                    <label>Your Name</label>
+                    <input type="text" id="userName" placeholder="Enter your name" oninput="saveData()">
+                </div>
+                <div class="goals-grid">
+                    <div class="input-group">
+                        <label>Primary Goal</label>
+                        <input type="text" id="primaryGoal" placeholder="e.g., Lose 10 pounds" oninput="saveData()">
+                    </div>
+                    <div class="input-group">
+                        <label>Secondary Goal</label>
+                        <input type="text" id="secondaryGoal" placeholder="e.g., Build strength" oninput="saveData()">
+                    </div>
                 </div>
             </div>
         </div>
@@ -1479,6 +1675,53 @@
                 <button class="btn btn-reset" onclick="resetAll()">🔄 Reset All Data</button>
             </div>
         </div>
+
+        <!-- Progress Tracker -->
+        <div class="progress-tracker">
+            <h2 class="progress-title">🏆 Your Progress Journey</h2>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressBarFill" style="width: 0%"></div>
+            </div>
+
+            <div class="progress-milestones">
+                <div class="milestone" id="milestone-0">
+                    <div class="milestone-icon">🚀</div>
+                    <span>Start</span>
+                </div>
+                <div class="milestone" id="milestone-25">
+                    <div class="milestone-icon">💪</div>
+                    <span>25%</span>
+                </div>
+                <div class="milestone" id="milestone-50">
+                    <div class="milestone-icon">🔥</div>
+                    <span>50%</span>
+                </div>
+                <div class="milestone" id="milestone-75">
+                    <div class="milestone-icon">⚡</div>
+                    <span>75%</span>
+                </div>
+                <div class="milestone" id="milestone-100">
+                    <div class="milestone-icon">🏆</div>
+                    <span>Goal!</span>
+                </div>
+            </div>
+
+            <div class="progress-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="currentPoints">0</div>
+                    <div class="stat-label">Current Points</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="progressPercentage">0%</div>
+                    <div class="stat-label">Progress</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="remainingPoints">630</div>
+                    <div class="stat-label">Points to Go</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Summary Modal -->
@@ -1530,7 +1773,7 @@
 
     <script>
         // Version number - increment this each time you make changes
-        var APP_VERSION = '2.5';
+        var APP_VERSION = '2.9';
 
         // Check for updates and auto-reload if new version available
         function checkForUpdates() {
@@ -1658,6 +1901,83 @@
             saveCollapsedState();
         }
 
+        function toggleProfile(event) {
+            // Don't toggle if clicking on an input
+            if (event && event.target.tagName === 'INPUT') {
+                return;
+            }
+
+            var content = document.getElementById('profile-content');
+            var header = content.previousElementSibling;
+
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                content.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+
+            saveProfileCollapsedState();
+        }
+
+        function saveProfileCollapsedState() {
+            try {
+                var content = document.getElementById('profile-content');
+                var isCollapsed = content.classList.contains('collapsed');
+                localStorage.setItem('profileCollapsed', isCollapsed);
+            } catch (e) {
+                console.error('Save profile collapsed state error:', e);
+            }
+        }
+
+        function loadProfileCollapsedState() {
+            try {
+                var isCollapsed = localStorage.getItem('profileCollapsed');
+                if (isCollapsed === 'true') {
+                    var content = document.getElementById('profile-content');
+                    var header = content.previousElementSibling;
+                    if (content) content.classList.add('collapsed');
+                    if (header) header.classList.add('collapsed');
+                }
+            } catch (e) {
+                console.error('Load profile collapsed state error:', e);
+            }
+        }
+
+        function updateProfileStatus() {
+            var userName = document.getElementById('userName').value.trim();
+            var primaryGoal = document.getElementById('primaryGoal').value.trim();
+            var secondaryGoal = document.getElementById('secondaryGoal').value.trim();
+
+            // Update title based on name
+            var profileTitle = document.getElementById('profileTitle');
+            if (profileTitle) {
+                if (userName) {
+                    profileTitle.textContent = "What's up " + userName + "!";
+                } else {
+                    profileTitle.textContent = "Your Info";
+                }
+            }
+
+            // Update status based on completion
+            var filledCount = 0;
+            if (userName) filledCount++;
+            if (primaryGoal) filledCount++;
+            if (secondaryGoal) filledCount++;
+
+            var statusDisplay = document.getElementById('profileStatus');
+            if (statusDisplay) {
+                if (filledCount === 3) {
+                    statusDisplay.className = 'week-complete';
+                    statusDisplay.innerHTML = '<span>Goals Set!</span> <span>🏆</span>';
+                } else {
+                    statusDisplay.className = 'week-points';
+                    statusDisplay.textContent = filledCount + ' / 3 fields';
+                }
+            }
+        }
+
         function saveCollapsedState() {
             try {
                 var collapsed = [];
@@ -1748,7 +2068,7 @@
 
                 var pointsHTML = '';
                 if (weekPoints === 70) {
-                    pointsHTML = '<div class="week-complete"><span>Complete</span> <span>🏆</span></div>';
+                    pointsHTML = '<div class="week-complete"><span>Week ' + week.week + ' CRUSHED!</span> <span>🏆</span></div>';
                 } else {
                     pointsHTML = '<div class="week-points">' + weekPoints + ' / 70 pts</div>';
                 }
@@ -1832,7 +2152,54 @@
             // Update week points display
             updateWeekPoints();
 
+            // Update progress tracker
+            updateProgressTracker(total);
+
             saveData();
+        }
+
+        function updateProgressTracker(total) {
+            var maxPoints = 630;
+            var percentage = Math.min((total / maxPoints) * 100, 100);
+
+            // Update progress bar
+            var progressBar = document.getElementById('progressBarFill');
+            if (progressBar) {
+                progressBar.style.width = percentage + '%';
+            }
+
+            // Update stats
+            var currentPointsEl = document.getElementById('currentPoints');
+            var progressPercentageEl = document.getElementById('progressPercentage');
+            var remainingPointsEl = document.getElementById('remainingPoints');
+
+            if (currentPointsEl) currentPointsEl.textContent = total;
+            if (progressPercentageEl) progressPercentageEl.textContent = Math.round(percentage) + '%';
+            if (remainingPointsEl) remainingPointsEl.textContent = Math.max(maxPoints - total, 0);
+
+            // Update milestones
+            updateMilestones(percentage);
+        }
+
+        function updateMilestones(percentage) {
+            var milestones = [
+                { id: 'milestone-0', threshold: 0 },
+                { id: 'milestone-25', threshold: 25 },
+                { id: 'milestone-50', threshold: 50 },
+                { id: 'milestone-75', threshold: 75 },
+                { id: 'milestone-100', threshold: 100 }
+            ];
+
+            milestones.forEach(function(milestone) {
+                var el = document.getElementById(milestone.id);
+                if (el) {
+                    if (percentage >= milestone.threshold) {
+                        el.classList.add('achieved');
+                    } else {
+                        el.classList.remove('achieved');
+                    }
+                }
+            });
         }
 
         function updateWeekPoints() {
@@ -1848,7 +2215,7 @@
                 if (pointsDisplay) {
                     if (weekPoints === 70) {
                         pointsDisplay.className = 'week-complete';
-                        pointsDisplay.innerHTML = '<span>Complete</span> <span>🏆</span>';
+                        pointsDisplay.innerHTML = '<span>Week ' + week.week + ' CRUSHED!</span> <span>🏆</span>';
                     } else {
                         pointsDisplay.className = 'week-points';
                         pointsDisplay.textContent = weekPoints + ' / 70 pts';
@@ -1874,6 +2241,9 @@
                 }
 
                 localStorage.setItem('trackerModern', JSON.stringify(data));
+
+                // Update profile completion status
+                updateProfileStatus();
             } catch (e) {
                 console.error('Save error:', e);
             }
@@ -2052,6 +2422,8 @@
             loadData();
             update();
             loadCollapsedState();
+            loadProfileCollapsedState();
+            updateProfileStatus();
         };
     </script>
 </body>
