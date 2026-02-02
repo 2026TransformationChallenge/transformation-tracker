@@ -1703,10 +1703,10 @@
         <div class="quick-links">
             <div class="quick-links-title">Quick Links</div>
             <div class="quick-links-grid">
-                <a href="https://www.myfitnesspal.com/" class="quick-link-btn btn-myfitnesspal" target="_blank" rel="noopener">
+                <a href="#" onclick="tryOpenApp(event, 'myfitnesspal://', 'https://www.myfitnesspal.com/')" class="quick-link-btn btn-myfitnesspal">
                     <img src="mfp-icon.svg" alt="MFP" style="width: 24px; height: 24px; filter: brightness(1.2);"> MyFitnessPal
                 </a>
-                <a href="https://wa.me/" class="quick-link-btn btn-whatsapp" target="_blank" rel="noopener">
+                <a href="#" onclick="tryOpenApp(event, 'whatsapp://', 'https://web.whatsapp.com/')" class="quick-link-btn btn-whatsapp">
                     <img src="whatsapp-icon.svg" alt="WhatsApp" style="width: 24px; height: 24px; filter: brightness(1.1);"> WhatsApp
                 </a>
             </div>
@@ -1858,7 +1858,7 @@
 
     <script>
         // Version number - increment this each time you make changes
-        var APP_VERSION = '3.9';
+        var APP_VERSION = '4.0';
 
         // Check for updates and auto-reload if new version available
         function checkForUpdates() {
@@ -2424,21 +2424,49 @@
             }
         }
 
-        function openApp(event, appUrl, webUrl) {
+        function tryOpenApp(event, appScheme, webUrl) {
             event.preventDefault();
 
-            var now = Date.now();
+            var clickTime = Date.now();
+            var timeout;
 
-            // Attempt to open the app
-            window.location = appUrl;
+            // Create invisible iframe to try opening the app
+            var iframe = document.createElement('iframe');
+            iframe.style.border = 'none';
+            iframe.style.width = '1px';
+            iframe.style.height = '1px';
+            iframe.style.position = 'absolute';
+            iframe.style.top = '-9999px';
+            document.body.appendChild(iframe);
 
-            // If we're still here after 2.5 seconds, open web version
-            setTimeout(function() {
-                // Check if enough time has passed (app didn't open)
-                if (Date.now() - now < 3000) {
-                    window.location = webUrl;
+            // Try to open the app
+            iframe.src = appScheme;
+
+            // Set timeout to open web version if app doesn't open
+            timeout = setTimeout(function() {
+                var timeElapsed = Date.now() - clickTime;
+                // If less than 2 seconds passed, assume app didn't open
+                if (timeElapsed < 2100) {
+                    window.open(webUrl, '_blank');
                 }
-            }, 2500);
+                // Clean up
+                try {
+                    document.body.removeChild(iframe);
+                } catch(e) {}
+            }, 2000);
+
+            // Also listen for visibility change (app opened)
+            var onBlur = function() {
+                clearTimeout(timeout);
+                setTimeout(function() {
+                    try {
+                        document.body.removeChild(iframe);
+                    } catch(e) {}
+                }, 1000);
+            };
+
+            window.addEventListener('blur', onBlur, { once: true });
+            window.addEventListener('pagehide', onBlur, { once: true });
         }
 
         function showSummary() {
