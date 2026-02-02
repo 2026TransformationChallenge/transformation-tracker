@@ -1858,7 +1858,7 @@
 
     <script>
         // Version number - increment this each time you make changes
-        var APP_VERSION = '4.0';
+        var APP_VERSION = '4.2';
 
         // Check for updates and auto-reload if new version available
         function checkForUpdates() {
@@ -2425,48 +2425,37 @@
         }
 
         function tryOpenApp(event, appScheme, webUrl) {
-            event.preventDefault();
+            if (event) {
+                event.preventDefault();
+            }
 
-            var clickTime = Date.now();
-            var timeout;
+            // Immediately try to open the native app
+            window.location.href = appScheme;
 
-            // Create invisible iframe to try opening the app
-            var iframe = document.createElement('iframe');
-            iframe.style.border = 'none';
-            iframe.style.width = '1px';
-            iframe.style.height = '1px';
-            iframe.style.position = 'absolute';
-            iframe.style.top = '-9999px';
-            document.body.appendChild(iframe);
+            // After a delay, check if we're still here and redirect to web
+            var timeout = setTimeout(function() {
+                // If we're still on this page, the app didn't open
+                // Redirect to web version
+                window.location.href = webUrl;
+            }, 1500);
 
-            // Try to open the app
-            iframe.src = appScheme;
-
-            // Set timeout to open web version if app doesn't open
-            timeout = setTimeout(function() {
-                var timeElapsed = Date.now() - clickTime;
-                // If less than 2 seconds passed, assume app didn't open
-                if (timeElapsed < 2100) {
-                    window.open(webUrl, '_blank');
-                }
-                // Clean up
-                try {
-                    document.body.removeChild(iframe);
-                } catch(e) {}
-            }, 2000);
-
-            // Also listen for visibility change (app opened)
-            var onBlur = function() {
+            // If the page becomes hidden, the app opened successfully
+            var onHidden = function() {
                 clearTimeout(timeout);
-                setTimeout(function() {
-                    try {
-                        document.body.removeChild(iframe);
-                    } catch(e) {}
-                }, 1000);
             };
 
-            window.addEventListener('blur', onBlur, { once: true });
-            window.addEventListener('pagehide', onBlur, { once: true });
+            // Listen for visibility changes
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    onHidden();
+                }
+            });
+
+            // Listen for blur (app opened)
+            window.addEventListener('blur', onHidden);
+            window.addEventListener('pagehide', onHidden);
+
+            return false;
         }
 
         function showSummary() {
