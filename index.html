@@ -268,12 +268,29 @@
             gap: 10px;
         }
 
-        .week-challenge-title {
-            font-size: 0.65em;
-            font-weight: 500;
-            color: #222;
-            margin-top: 5px;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        .week-challenge-banner {
+            background: linear-gradient(135deg, #FFE5D9 0%, #FFF5F0 100%);
+            padding: 15px 20px;
+            margin: -10px -10px 20px -10px;
+            border-radius: 12px;
+            border-left: 4px solid #D3451C;
+            box-shadow: 0 2px 8px rgba(211, 69, 28, 0.15);
+        }
+
+        .week-challenge-label {
+            font-size: 0.75em;
+            font-weight: 600;
+            color: #D3451C;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .week-challenge-text {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1.4;
         }
 
         .collapse-arrow {
@@ -1773,7 +1790,7 @@
 
     <script>
         // Version number - increment this each time you make changes
-        var APP_VERSION = '2.9';
+        var APP_VERSION = '3.0';
 
         // Check for updates and auto-reload if new version available
         function checkForUpdates() {
@@ -2080,11 +2097,14 @@
                                 <span class="collapse-arrow">▼</span>
                                 Week ${week.week}
                             </div>
-                            <div class="week-challenge-title">${week.challenge}</div>
                         </div>
                         ${pointsHTML}
                     </div>
                     <div class="week-content" id="week-content-${week.week}">
+                        <div class="week-challenge-banner">
+                            <div class="week-challenge-label">Weekly Challenge</div>
+                            <div class="week-challenge-text">${week.challenge}</div>
+                        </div>
                         ${activitiesHTML}
                     </div>
                 `;
