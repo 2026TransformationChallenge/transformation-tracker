@@ -1703,10 +1703,10 @@
         <div class="quick-links">
             <div class="quick-links-title">Quick Links</div>
             <div class="quick-links-grid">
-                <a href="myfitnesspal://" onclick="openApp(event, 'myfitnesspal://', 'https://www.myfitnesspal.com/')" class="quick-link-btn btn-myfitnesspal">
+                <a href="https://www.myfitnesspal.com/" class="quick-link-btn btn-myfitnesspal" target="_blank" rel="noopener">
                     <img src="mfp-icon.svg" alt="MFP" style="width: 24px; height: 24px; filter: brightness(1.2);"> MyFitnessPal
                 </a>
-                <a href="whatsapp://" onclick="openApp(event, 'whatsapp://', 'https://web.whatsapp.com/')" class="quick-link-btn btn-whatsapp">
+                <a href="https://wa.me/" class="quick-link-btn btn-whatsapp" target="_blank" rel="noopener">
                     <img src="whatsapp-icon.svg" alt="WhatsApp" style="width: 24px; height: 24px; filter: brightness(1.1);"> WhatsApp
                 </a>
             </div>
@@ -1858,7 +1858,7 @@
 
     <script>
         // Version number - increment this each time you make changes
-        var APP_VERSION = '3.8';
+        var APP_VERSION = '3.9';
 
         // Check for updates and auto-reload if new version available
         function checkForUpdates() {
@@ -2427,43 +2427,16 @@
         function openApp(event, appUrl, webUrl) {
             event.preventDefault();
 
-            // Create a hidden iframe to try opening the app
-            var iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            document.body.appendChild(iframe);
-            iframe.src = appUrl;
+            var now = Date.now();
 
-            var startTime = Date.now();
-            var opened = false;
+            // Attempt to open the app
+            window.location = appUrl;
 
-            // Detect if page loses visibility (app opened)
-            var visibilityHandler = function() {
-                if (document.hidden) {
-                    opened = true;
-                }
-            };
-
-            var blurHandler = function() {
-                opened = true;
-            };
-
-            document.addEventListener('visibilitychange', visibilityHandler);
-            window.addEventListener('pagehide', visibilityHandler);
-            window.addEventListener('blur', blurHandler);
-
-            // Cleanup and fallback to web version if app didn't open
+            // If we're still here after 2.5 seconds, open web version
             setTimeout(function() {
-                document.removeEventListener('visibilitychange', visibilityHandler);
-                window.removeEventListener('pagehide', visibilityHandler);
-                window.removeEventListener('blur', blurHandler);
-
-                try {
-                    document.body.removeChild(iframe);
-                } catch(e) {}
-
-                // If app didn't open, go to web version
-                if (!opened) {
-                    window.location.href = webUrl;
+                // Check if enough time has passed (app didn't open)
+                if (Date.now() - now < 3000) {
+                    window.location = webUrl;
                 }
             }, 2500);
         }
