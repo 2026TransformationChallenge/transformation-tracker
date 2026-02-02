@@ -65,11 +65,19 @@
             backdrop-filter: blur(2px);
             -webkit-backdrop-filter: blur(2px);
             border-radius: 20px;
-            padding: 40px 30px;
+            padding: 0;
             margin-bottom: 20px;
             box-shadow: 0 15px 50px rgba(0,0,0,0.5);
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+        }
+
+        .header img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 20px;
         }
 
         .header h1 {
@@ -77,7 +85,7 @@
             font-size: 2.5em;
             margin-bottom: 10px;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
-            font-weight: 800;
+            font-weight: 600;
         }
 
         .header p {
@@ -104,7 +112,7 @@
 
         .input-group label {
             display: block;
-            font-weight: 700;
+            font-weight: 600;
             color: #000;
             margin-bottom: 8px;
             font-size: 0.95em;
@@ -167,7 +175,7 @@
 
         .week-title {
             font-size: 1.3em;
-            font-weight: 800;
+            font-weight: 600;
             color: #000;
             display: flex;
             align-items: center;
@@ -185,7 +193,7 @@
 
         .week-challenge-title {
             font-size: 0.65em;
-            font-weight: 600;
+            font-weight: 500;
             color: #222;
             margin-top: 5px;
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
@@ -227,7 +235,7 @@
             color: white;
             padding: 8px 16px;
             border-radius: 20px;
-            font-weight: 700;
+            font-weight: 600;
             font-size: 0.9em;
             display: flex;
             align-items: center;
@@ -336,14 +344,14 @@
         }
 
         .activity-name {
-            font-weight: 600;
+            font-weight: 500;
             color: #000;
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
         }
 
         .activity-points {
             color: #D3451C;
-            font-weight: 600;
+            font-weight: 500;
             font-size: 0.9em;
         }
 
@@ -370,7 +378,7 @@
 
         .section-title {
             font-size: 1.3em;
-            font-weight: 800;
+            font-weight: 600;
             color: #000;
             margin-bottom: 20px;
             text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
@@ -420,7 +428,7 @@
 
         .total-points {
             font-size: 3em;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .max-points {
@@ -441,7 +449,7 @@
             border: none;
             border-radius: 12px;
             font-size: 1em;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -479,7 +487,7 @@
 
         .quick-links-title {
             font-size: 1.1em;
-            font-weight: 700;
+            font-weight: 600;
             color: #000;
             margin-bottom: 15px;
             text-align: center;
@@ -501,7 +509,7 @@
             border: none;
             border-radius: 12px;
             font-size: 1em;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
@@ -549,7 +557,7 @@
             border: none;
             border-radius: 12px;
             font-size: 0.95em;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             color: white;
@@ -1204,8 +1212,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>💪 2026 STAFF TC CHALLENGE</h1>
-            <p>Track your journey</p>
+            <img src="tc-header.jpg" alt="Staff Transformation Challenge 2026">
         </div>
 
         <div class="profile-card">
@@ -1336,7 +1343,7 @@
 
     <script>
         // Version number - increment this each time you make changes
-        var APP_VERSION = '1.6';
+        var APP_VERSION = '1.9';
 
         // Check for updates and auto-reload if new version available
         function checkForUpdates() {
