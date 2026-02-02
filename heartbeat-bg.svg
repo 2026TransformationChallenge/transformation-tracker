@@ -1,0 +1,61 @@
+<svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d1810;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4a2415;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6b3a1e;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Glow filter for the heartbeat line -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Stronger glow for highlight areas -->
+    <filter id="strongGlow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bgGradient)"/>
+
+  <!-- Heartbeat pattern (repeated across the width) -->
+  <g filter="url(#glow)">
+    <!-- First heartbeat -->
+    <path d="M 0 540 L 200 540 L 250 540 L 280 440 L 310 640 L 330 540 L 380 540"
+          stroke="#ff8c3a" stroke-width="3" fill="none" opacity="0.6"/>
+
+    <!-- Second heartbeat -->
+    <path d="M 380 540 L 580 540 L 630 540 L 660 440 L 690 640 L 710 540 L 760 540"
+          stroke="#ff8c3a" stroke-width="3" fill="none" opacity="0.6"/>
+
+    <!-- Third heartbeat (center - brighter) -->
+    <path d="M 760 540 L 880 540 L 920 540 L 950 380 L 980 700 L 1000 540 L 1060 540"
+          stroke="#ffaa5a" stroke-width="4" fill="none" filter="url(#strongGlow)"/>
+
+    <!-- Fourth heartbeat -->
+    <path d="M 1060 540 L 1260 540 L 1310 540 L 1340 440 L 1370 640 L 1390 540 L 1440 540"
+          stroke="#ff8c3a" stroke-width="3" fill="none" opacity="0.6"/>
+
+    <!-- Fifth heartbeat -->
+    <path d="M 1440 540 L 1640 540 L 1690 540 L 1720 440 L 1750 640 L 1770 540 L 1920 540"
+          stroke="#ff8c3a" stroke-width="3" fill="none" opacity="0.6"/>
+  </g>
+
+  <!-- Brighter baseline with glow -->
+  <line x1="0" y1="540" x2="1920" y2="540"
+        stroke="#ff6b2b" stroke-width="1" opacity="0.3" filter="url(#glow)"/>
+</svg>
