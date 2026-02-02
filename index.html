@@ -553,20 +553,64 @@
             overflow: hidden;
         }
 
+        /* Fire effect layers */
         .total-section::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: shine 3s infinite;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 100%, rgba(255, 200, 0, 0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 100%, rgba(255, 120, 0, 0.5) 0%, transparent 50%),
+                radial-gradient(ellipse at 60% 100%, rgba(255, 50, 0, 0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 100%, rgba(255, 150, 0, 0.5) 0%, transparent 50%);
+            animation: flames 3s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        @keyframes shine {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .total-section::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 120%;
+            background:
+                radial-gradient(ellipse at 30% 100%, rgba(255, 230, 100, 0.3) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 100%, rgba(255, 100, 0, 0.4) 0%, transparent 45%),
+                radial-gradient(ellipse at 70% 100%, rgba(255, 180, 50, 0.35) 0%, transparent 40%);
+            animation: flames 2.5s ease-in-out infinite reverse;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes flames {
+            0%, 100% {
+                transform: scaleY(1) translateY(0);
+                opacity: 0.8;
+            }
+            25% {
+                transform: scaleY(1.1) translateY(-5px);
+                opacity: 1;
+            }
+            50% {
+                transform: scaleY(0.95) translateY(3px);
+                opacity: 0.7;
+            }
+            75% {
+                transform: scaleY(1.05) translateY(-3px);
+                opacity: 0.9;
+            }
+        }
+
+        .total-label,
+        .total-points,
+        .max-points {
+            position: relative;
+            z-index: 1;
         }
 
         .total-label {
@@ -716,16 +760,22 @@
 
         .stat-value {
             font-size: 1.8em;
-            font-weight: 600;
-            color: #D3451C;
-            text-shadow: 0 2px 5px rgba(211, 69, 28, 0.3);
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(211, 69, 28, 0.6);
+            background: linear-gradient(135deg, #D3451C 0%, #E86F3E 100%);
+            padding: 10px 20px;
+            border-radius: 12px;
+            display: inline-block;
+            min-width: 80px;
         }
 
         .stat-label {
             font-size: 0.9em;
-            color: #333;
-            font-weight: 500;
-            margin-top: 5px;
+            color: #1a1a1a;
+            font-weight: 600;
+            margin-top: 8px;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
         }
 
         .max-points {
@@ -1214,6 +1264,8 @@
 
             .stat-value {
                 font-size: 1.5em;
+                padding: 8px 15px;
+                min-width: 60px;
             }
 
             .modal-content {
@@ -1790,7 +1842,7 @@
 
     <script>
         // Version number - increment this each time you make changes
-        var APP_VERSION = '3.1';
+        var APP_VERSION = '3.3';
 
         // Check for updates and auto-reload if new version available
         function checkForUpdates() {
